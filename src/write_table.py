@@ -22,7 +22,7 @@ def write_table(table: list[Line]) -> None:
             row: list[str] = [
                 line.number,
                 line.symbol,
-                " ".join(line.first_set),
+                " ".join(sorted(line.first_set)),
                 "+" if line.shift else "-",
                 "+" if line.error else "-",
                 line.pointer,
