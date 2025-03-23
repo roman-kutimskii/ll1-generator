@@ -13,7 +13,7 @@ class Rule:
     nonterminal: str
     productions: list[Production]
 
-    def add_production(self, symbols: list[str], first_set: list[str]):
+    def add_production(self, symbols: list[str], first_set: list[str]) -> None:
         self.productions.append(Production(symbols, first_set))
 
 
@@ -24,7 +24,7 @@ class Grammar:
     def add_rule(self, nonterminal: str) -> None:
         self.rules[nonterminal] = Rule(nonterminal, [])
 
-    def add_production(self, nonterminal: str, symbols: list[str], first_set: list[str]):
+    def add_production(self, nonterminal: str, symbols: list[str], first_set: list[str]) -> None:
         if nonterminal not in self.rules:
             self.add_rule(nonterminal)
         self.rules[nonterminal].add_production(symbols, first_set)
@@ -32,7 +32,7 @@ class Grammar:
 
 def parse_grammar(contents: list[str]) -> Grammar:
     grammar = Grammar({})
-    pattern = r"^\s*<(\w+)>\s*->(.*)/\s*(.*)\s*$"
+    pattern = r"^\s*(<\w+>)\s*->(.*)/\s*(.*)\s*$"
     for rule in contents:
         match = re.match(pattern, rule)
         if match:
