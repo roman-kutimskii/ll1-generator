@@ -21,23 +21,20 @@ class Rule:
 class Grammar:
     rules: dict[str, Rule]
 
-    def add_rule(self, nonterminal: str) -> None:
-        self.rules[nonterminal] = Rule(nonterminal, [])
-
     def add_production(self, nonterminal: str, symbols: list[str], first_set: list[str]) -> None:
         if nonterminal not in self.rules:
-            self.add_rule(nonterminal)
+            self.rules[nonterminal] = Rule(nonterminal, [])
         self.rules[nonterminal].add_production(symbols, first_set)
 
 
 def parse_grammar(contents: list[str]) -> Grammar:
-    grammar = Grammar({})
-    pattern = r"^\s*(<\w+>)\s*->(.*)/\s*(.*)\s*$"
+    grammar = Grammar(dict())
+    pattern = re.compile(r"^\s*(<\w+>)\s*->(.*)/\s*(.*)\s*$")
+
     for rule in contents:
-        match = re.match(pattern, rule)
+        match = pattern.match(rule)
         if match:
-            name = match.group(1)
-            symbols = match.group(2).strip().split()
-            first_set = match.group(3).strip().split()
-            grammar.add_production(name, symbols, first_set)
+            nonterminal, symbols, first_set = match.groups()
+            grammar.add_production(nonterminal.strip(), symbols.strip().split(), first_set.strip().split())
+
     return grammar
