@@ -1,6 +1,6 @@
 from itertools import chain
 
-from src.parse_grammar import parse_grammar
+from src.parse_grammar import parse_grammar, Grammar, Production
 from src.write_table import write_table, Line
 
 
@@ -8,48 +8,74 @@ def is_nonterminal(symbol: str) -> bool:
     return symbol.startswith('<') and symbol.endswith('>')
 
 
-def main() -> None:
-    with open("../grammar.txt", "r", encoding="utf-8") as f:
-        lines = f.readlines()
+def is_terminal(symbol: str) -> bool:
+    return not is_nonterminal(symbol) and symbol != "ε"
 
-    grammar = parse_grammar(lines)
-    rule_indices: dict[str, int] = {}
+
+def check_end(symbol: str, symbols: list[str], index: int, end_set: bool) -> (bool, bool):
+    end = not end_set and index == len(symbols) - 1 and is_terminal(symbol)
+    return end, end_set or end
+
+
+def get_pointer(symbol: str, symbols: list[str], index: int, current_index: int,
+                rule_indices: dict[str, int]) -> int | None:
+    if is_nonterminal(symbol):
+        return rule_indices[symbol]
+    return None if index == len(symbols) - 1 else current_index + 1
+
+
+def get_first_set(symbol: str, grammar: Grammar, production: Production) -> list[str]:
+    if is_nonterminal(symbol):
+        return list(set(chain.from_iterable(prod.first_set for prod in grammar.rules[symbol].productions)))
+    return production.first_set if symbol == "ε" else [symbol]
+
+
+def compute_rule_indices(grammar: Grammar) -> dict[str, int]:
+    rule_indices = {}
     index = 0
-
     for rule in grammar.rules.values():
         rule_indices[rule.nonterminal] = index
         index += sum(len(production.symbols) + 1 for production in rule.productions)
+    return rule_indices
 
-    table: list[Line] = []
 
+def build_parsing_table(grammar: Grammar) -> list[Line]:
+    rule_indices = compute_rule_indices(grammar)
+    table = []
     index = 0
     end_set = False
+
     for rule in grammar.rules.values():
-        production_symbols = []
-        for production_index, production in enumerate(rule.productions):
-            error = production_index == len(rule.productions) - 1
-            pointer = index + len(rule.productions) - production_index + sum(
-                len(production.symbols) for production in rule.productions[:production_index])
-            table.append(Line(index, rule.nonterminal, production.first_set, False, error, pointer, False, False))
+        production_symbols = [prod.symbols for prod in rule.productions]
+
+        for prod_idx, production in enumerate(rule.productions):
+            error = (prod_idx == len(rule.productions) - 1)
+            pointer = index + len(rule.productions) - prod_idx + sum(
+                len(p.symbols) for p in rule.productions[:prod_idx])
+
+            table.append(Line(index, rule.nonterminal, production.first_set, shift=False, error=error, pointer=pointer,
+                              stack=False, end=False))
             index += 1
-            production_symbols.append(production.symbols)
-        for symbols_index, symbols in enumerate(production_symbols):
-            for symbol_index, symbol in enumerate(symbols):
-                first_set = list(
-                    set(chain.from_iterable(
-                        production.first_set for production in grammar.rules[symbol].productions))) if is_nonterminal(
-                    symbol) else rule.productions[symbols_index].first_set if symbol == "ε" else [symbol]
-                pointer = rule_indices[symbol] if is_nonterminal(symbol) else None if symbol_index == len(
-                    symbols) - 1 else index + 1
-                end = not end_set and symbol_index == len(symbols) - 1 and not is_nonterminal(symbol)
-                if end:
-                    end_set = True
-                stack = symbol_index != len(symbols) - 1 if is_nonterminal(symbol) else False
-                table.append(
-                    Line(index, symbol, first_set, not is_nonterminal(symbol) and symbol != "ε", True, pointer, stack,
-                         end))
+
+        for sym_idx, symbols in enumerate(production_symbols):
+            for sub_idx, symbol in enumerate(symbols):
+                first_set = get_first_set(symbol, grammar, rule.productions[sym_idx])
+                pointer = get_pointer(symbol, symbols, sub_idx, index, rule_indices)
+                end, end_set = check_end(symbol, symbols, sub_idx, end_set)
+                stack = (sub_idx != len(symbols) - 1) if is_nonterminal(symbol) else False
+
+                table.append(Line(index, symbol, first_set, shift=is_terminal(symbol), error=True, pointer=pointer,
+                                  stack=stack, end=end))
                 index += 1
 
+    return table
+
+
+def main() -> None:
+    with open("../grammar.txt", "r", encoding="utf-8") as f:
+        grammar = parse_grammar(f.readlines())
+
+    table = build_parsing_table(grammar)
     write_table(table)
 
 
