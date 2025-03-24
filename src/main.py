@@ -13,9 +13,9 @@ def task1() -> None:
 
 
 def task2() -> None:
-    line = "abc#"
+    line = "type a = record b : int end ; c : int ⊥"
     table = read_table()
-    print(check_line(line, table))
+    print(check_line(line.split(), table))
 
 
 if __name__ == "__main__":

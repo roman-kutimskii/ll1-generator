@@ -1,7 +1,8 @@
-<S> -> <A> <B> <C> # / a b c #
-<A> -> a <A> / a
-<A> -> ε / b c #
-<B> -> b <B> / b
-<B> -> ε / c #
-<C> -> c <C> / c
-<C> -> ε / #
+<S> -> type <I> = <T> <B> ⊥ / type
+<T> -> int / int
+<T> -> record <I> : <T> <B> end / record
+<B> -> ε / end ⊥
+<B> -> ; <I> : <T> <B> / ;
+<I> -> a / a
+<I> -> b / b
+<I> -> c / c

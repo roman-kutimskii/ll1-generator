@@ -1,7 +1,7 @@
 from src.table import Line
 
 
-def check_line(line: str, table: list[Line]) -> str:
+def check_line(line: list[str], table: list[Line]) -> str:
     index = 0
     current_position = 0
     stack = []
