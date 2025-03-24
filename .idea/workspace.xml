@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9aaef7f0-3a97-43e2-b286-3a652b68dd72" name="Changes" comment="Добавить вывод в таблицу">
+      <change afterPath="$PROJECT_DIR$/src/build_parsing_table.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
@@ -72,7 +73,7 @@
       <workItem from="1742715405275" duration="2029000" />
       <workItem from="1742723667613" duration="677000" />
       <workItem from="1742724427421" duration="16420000" />
-      <workItem from="1742838280943" duration="2650000" />
+      <workItem from="1742838280943" duration="2857000" />
     </task>
     <task id="LOCAL-00001" summary="Добавить файлы IDE">
       <option name="closed" value="true" />
