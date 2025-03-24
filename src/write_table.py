@@ -17,9 +17,8 @@ class Line:
 def write_table(table: list[Line]) -> None:
     with open("../table.csv", "w", encoding="utf-8", newline="") as file:
         writer = csv.writer(file, delimiter=";")
-
         for line in table:
-            row: list[str] = [
+            writer.writerow([
                 line.number,
                 line.symbol,
                 " ".join(sorted(line.first_set)),
@@ -28,5 +27,4 @@ def write_table(table: list[Line]) -> None:
                 line.pointer,
                 "+" if line.stack else "-",
                 "+" if line.end else "-"
-            ]
-            writer.writerow(row)
+            ])
