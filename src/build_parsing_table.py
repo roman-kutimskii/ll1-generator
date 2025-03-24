@@ -1,7 +1,7 @@
 from itertools import chain
 
 from src.parse_grammar import Grammar, Production
-from src.write_table import Line
+from src.table import Line
 
 
 def build_parsing_table(grammar: Grammar) -> list[Line]:
