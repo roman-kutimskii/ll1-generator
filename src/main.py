@@ -1,7 +1,7 @@
 from src.build_parsing_table import build_parsing_table
 from src.check_line import check_line
 from src.grammar import factorize_grammar
-from src.parse_grammar import parse_grammar, parse_grammar_with_first_set
+from src.grammar_utils import parse_grammar, parse_grammar_with_first_set, write_grammar
 from src.table import write_table, read_table
 
 
@@ -33,8 +33,7 @@ def task3() -> None:
 
     grammar = factorize_grammar(grammar)
 
-    for rule in grammar.rules.values():
-        print(rule)
+    write_grammar(grammar, axiom_nonterminal)
 
 
 if __name__ == "__main__":

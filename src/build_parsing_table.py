@@ -1,6 +1,6 @@
 from itertools import chain
 
-from src.parse_grammar import Grammar, Production
+from src.grammar_utils import Grammar, Production
 from src.table import Line
 
 
