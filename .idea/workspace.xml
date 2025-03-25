@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9aaef7f0-3a97-43e2-b286-3a652b68dd72" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/grammar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grammar.txt" beforeDir="false" afterPath="$PROJECT_DIR$/grammar.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parse_grammar.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/parse_grammar.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/table.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/table.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +101,7 @@
       <workItem from="1742723667613" duration="677000" />
       <workItem from="1742724427421" duration="16420000" />
       <workItem from="1742838280943" duration="5618000" />
-      <workItem from="1742880125300" duration="5226000" />
+      <workItem from="1742880125300" duration="5538000" />
     </task>
     <task id="LOCAL-00001" summary="Добавить файлы IDE">
       <option name="closed" value="true" />

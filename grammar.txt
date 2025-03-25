@@ -1,8 +1,3 @@
-<S> -> type <I> = <T> <B> ⊥ / type
-<T> -> int / int
-<T> -> record <I> : <T> <B> end / record
-<B> -> ε / end ⊥
-<B> -> ; <I> : <T> <B> / ;
-<I> -> a / a
-<I> -> b / b
-<I> -> c / c
+<A> -> a b
+<A> -> a
+<A> -> a b c

@@ -19,5 +19,23 @@ def task2() -> None:
     print(check_line(line.split(), table))
 
 
+def task3() -> None:
+    with open("grammar.txt", "r", encoding="utf-8") as f:
+        grammar, axiom_nonterminal = parse_grammar(f.readlines())
+
+    axiom = grammar.rules[axiom_nonterminal]
+
+    for production in axiom.productions:
+        if axiom.nonterminal in production.symbols:
+            grammar.add_production("<axiom>", [axiom_nonterminal, "#"], [])
+            axiom_nonterminal = "<axiom>"
+            break
+
+    grammar = factorize_grammar(grammar)
+
+    for rule in grammar.rules.values():
+        print(rule)
+
+
 if __name__ == "__main__":
-    task2()
+    task3()
