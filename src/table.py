@@ -31,7 +31,7 @@ def write_table(table: list[Line]) -> None:
 
 
 def read_table() -> list[Line]:
-    with open("../table.csv", "r", encoding="utf-8", newline="") as file:
+    with open("table.csv", "r", encoding="utf-8", newline="") as file:
         reader = csv.reader(file, delimiter=";")
         table = []
         for row in reader:
