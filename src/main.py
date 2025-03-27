@@ -14,7 +14,7 @@ def task1() -> None:
 
 
 def task2() -> None:
-    line = "type a = record b : int end ; c : int ⊥"
+    line = "( - a * - ( - 5 ) ) + - ( 5 + - 5 ) + a #"
     table = read_table()
     print(check_line(line.split(), table))
 
@@ -37,4 +37,5 @@ def task3() -> None:
 
 
 if __name__ == "__main__":
-    task3()
+    task1()
+    task2()

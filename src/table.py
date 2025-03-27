@@ -15,7 +15,7 @@ class Line:
 
 
 def write_table(table: list[Line]) -> None:
-    with open("../table.csv", "w", encoding="utf-8", newline="") as file:
+    with open("table.csv", "w", encoding="utf-8", newline="") as file:
         writer = csv.writer(file, delimiter=";")
         for line in table:
             writer.writerow([
