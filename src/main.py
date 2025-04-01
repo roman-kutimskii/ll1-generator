@@ -37,5 +37,4 @@ def task3() -> None:
 
 
 if __name__ == "__main__":
-    task1()
-    task2()
+    task3()
