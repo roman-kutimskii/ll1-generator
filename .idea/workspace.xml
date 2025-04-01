@@ -106,7 +106,7 @@
       <workItem from="1742838280943" duration="5618000" />
       <workItem from="1742880125300" duration="10767000" />
       <workItem from="1742904739349" duration="1897000" />
-      <workItem from="1743504302319" duration="1196000" />
+      <workItem from="1743504302319" duration="4677000" />
     </task>
     <task id="LOCAL-00001" summary="Добавить файлы IDE">
       <option name="closed" value="true" />
@@ -138,6 +138,6 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ll1_generator$check_line.coverage" NAME="check_line Coverage Results" MODIFIED="1742844670269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/ll1_generator$parse_grammar.coverage" NAME="parse_grammar Coverage Results" MODIFIED="1742740625701" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/ll1_generator$main.coverage" NAME="main Coverage Results" MODIFIED="1743505492570" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$ProjectFileDir$" />
+    <SUITE FILE_PATH="coverage/ll1_generator$main.coverage" NAME="main Coverage Results" MODIFIED="1743509945054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$ProjectFileDir$" />
   </component>
 </project>

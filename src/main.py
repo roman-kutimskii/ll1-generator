@@ -1,6 +1,6 @@
 from src.build_parsing_table import build_parsing_table
 from src.check_line import check_line
-from src.grammar import factorize_grammar
+from src.grammar import factorize_grammar, remove_direct_recursion
 from src.grammar_utils import parse_grammar, parse_grammar_with_first_set, write_grammar
 from src.table import write_table, read_table
 
@@ -31,7 +31,7 @@ def task3() -> None:
             axiom_nonterminal = "<axiom>"
             break
 
-    grammar = factorize_grammar(grammar)
+    grammar = remove_direct_recursion(factorize_grammar(grammar))
 
     write_grammar(grammar, axiom_nonterminal)
 
