@@ -1,4 +1,5 @@
-<axiom> -> <A> # / 
-<Ar> -> a <Ar> / 
-<Ar> -> ε / 
+<A> -> c b a <Ar> / 
+<A> -> b a <Ar> / 
 <A> -> a <Ar> / 
+<Ar> -> c b a <Ar> / 
+<Ar> -> ε /

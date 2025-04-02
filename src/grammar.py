@@ -70,3 +70,51 @@ def remove_direct_recursion(grammar: Grammar) -> Grammar:
             new_grammar.rules[nonterminal] = rule
 
     return new_grammar
+
+def build_dependency_graph(grammar: Grammar) -> dict[str, set[str]]:
+    graph = defaultdict(set)
+    for nonterminal, rule in grammar.rules.items():
+        for production in rule.productions:
+            if production.symbols and production.symbols[0] in grammar.rules:
+                graph[nonterminal].add(production.symbols[0])
+    return graph
+
+
+def topological_sort(graph: dict[str, set[str]]) -> list[str]:
+    visited = set()
+    order = []
+
+    def dfs(node):
+        if node in visited:
+            return
+        visited.add(node)
+        for neighbor in graph[node]:
+            dfs(neighbor)
+        order.append(node)
+
+    for node in graph:
+        if node not in visited:
+            dfs(node)
+
+    return order
+
+
+def remove_indirect_recursion(grammar: Grammar) -> Grammar:
+    graph = build_dependency_graph(grammar)
+    order = topological_sort(graph)
+
+    for i, a_i in enumerate(order):
+        for j in range(i):
+            a_j = order[j]
+            new_productions = []
+
+            for production in grammar.rules[a_i].productions:
+                if production.symbols and production.symbols[0] == a_j:
+                    for a_j_prod in grammar.rules[a_j].productions:
+                        new_productions.append(Production(a_j_prod.symbols + production.symbols[1:], []))
+                else:
+                    new_productions.append(production)
+
+            grammar.rules[a_i].productions = new_productions
+
+    return remove_direct_recursion(grammar)
