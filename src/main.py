@@ -23,20 +23,24 @@ def task3() -> None:
     with open("grammar.txt", "r", encoding="utf-8") as f:
         grammar, axiom_nonterminal = parse_grammar(f.readlines())
 
-    axiom = grammar.rules[axiom_nonterminal]
 
     grammar = factorize_grammar(grammar)
 
-    # grammar = remove_indirect_recursion(grammar, axiom.nonterminal)
-    #
-    # for production in axiom.productions:
-    #     last_symbol = production.symbols[-1]
-    #     if axiom.nonterminal in production.symbols or (last_symbol.startswith('<') and last_symbol.endswith('>')):
-    #         grammar.add_production("<axiom>", [axiom_nonterminal, "#"], [])
-    #         axiom_nonterminal = "<axiom>"
-    #         break
+    grammar = remove_indirect_recursion(grammar)
 
-    # grammar = calculate_directing_sets(grammar)
+    grammar = remove_direct_recursion(grammar)
+
+    grammar = remove_unreachable_rules(grammar, axiom_nonterminal)
+
+    axiom = grammar.rules[axiom_nonterminal]
+    for production in axiom.productions:
+        last_symbol = production.symbols[-1]
+        if axiom.nonterminal in production.symbols or (last_symbol.startswith('<') and last_symbol.endswith('>')):
+            grammar.add_production("<axiom>", [axiom_nonterminal, "#"], [])
+            axiom_nonterminal = "<axiom>"
+            break
+
+    grammar = calculate_directing_sets(grammar)
 
     write_grammar(grammar, axiom_nonterminal)
 

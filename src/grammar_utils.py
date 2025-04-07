@@ -32,7 +32,7 @@ class Grammar:
 
 def parse_grammar_with_first_set(contents: list[str]) -> Grammar:
     grammar = Grammar(dict())
-    pattern = re.compile(r"^\s*(<\w+>)\s*->(.*)/\s*(.*)\s*$")
+    pattern = re.compile(r"^\s*(<.+>)\s*->(.*)/\s*(.*)\s*$")
 
     for rule in contents:
         match = pattern.match(rule)
@@ -45,7 +45,7 @@ def parse_grammar_with_first_set(contents: list[str]) -> Grammar:
 
 def parse_grammar(contents: list[str]) -> tuple[Grammar, str]:
     grammar = Grammar(dict())
-    pattern = re.compile(r"^\s*(<\w+>)\s*->\s*(.*)$")
+    pattern = re.compile(r"^\s*(<.+>)\s*->\s*(.*)$")
     axiom = None
 
     for rule in contents:
