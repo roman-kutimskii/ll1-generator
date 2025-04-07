@@ -71,20 +71,22 @@ def remove_direct_recursion(grammar: Grammar) -> Grammar:
 
     return new_grammar
 
+
 def build_dependency_graph(grammar: Grammar) -> dict[str, set[str]]:
-    graph = defaultdict(set)
+    graph = dict()
     for nonterminal, rule in grammar.rules.items():
         for production in rule.productions:
+            graph.setdefault(nonterminal, set())
             if production.symbols and production.symbols[0] in grammar.rules:
                 graph[nonterminal].add(production.symbols[0])
     return graph
 
 
-def topological_sort(graph: dict[str, set[str]]) -> list[str]:
+def topological_sort(graph: dict[str, set[str]], nonterminal: str) -> list[str]:
     visited = set()
     order = []
 
-    def dfs(node):
+    def dfs(node: str) -> None:
         if node in visited:
             return
         visited.add(node)
@@ -92,29 +94,48 @@ def topological_sort(graph: dict[str, set[str]]) -> list[str]:
             dfs(neighbor)
         order.append(node)
 
-    for node in graph:
-        if node not in visited:
-            dfs(node)
+    dfs(nonterminal)
 
     return order
 
 
-def remove_indirect_recursion(grammar: Grammar) -> Grammar:
+def remove_indirect_recursion(grammar: Grammar, start_symbol: str) -> Grammar:
     graph = build_dependency_graph(grammar)
-    order = topological_sort(graph)
 
-    for i, a_i in enumerate(order):
-        for j in range(i):
-            a_j = order[j]
-            new_productions = []
+    for node in graph:
+        order = topological_sort(graph, node)[:-1]
 
-            for production in grammar.rules[a_i].productions:
-                if production.symbols and production.symbols[0] == a_j:
-                    for a_j_prod in grammar.rules[a_j].productions:
-                        new_productions.append(Production(a_j_prod.symbols + production.symbols[1:], []))
-                else:
-                    new_productions.append(production)
+        for i, a_i in enumerate(order):
+            for j in range(i):
+                a_j = order[j]
+                new_productions = []
 
-            grammar.rules[a_i].productions = new_productions
+                for production in grammar.rules[a_i].productions:
+                    if production.symbols and production.symbols[0] == a_j:
+                        for a_j_prod in grammar.rules[a_j].productions:
+                            new_productions.append(Production(a_j_prod.symbols + production.symbols[1:], []))
+                    else:
+                        new_productions.append(production)
 
-    return remove_direct_recursion(grammar)
+                grammar.rules[a_i].productions = new_productions
+
+    return remove_direct_recursion(remove_unreachable_rules(grammar, start_symbol))
+
+
+def remove_unreachable_rules(grammar: Grammar, start_symbol: str) -> Grammar:
+    reachable = set()
+    queue = [start_symbol]
+
+    while queue:
+        current = queue.pop()
+        if current in reachable:
+            continue
+        reachable.add(current)
+        if current in grammar.rules:
+            for production in grammar.rules[current].productions:
+                for symbol in production.symbols:
+                    if symbol in grammar.rules and symbol not in reachable:
+                        queue.append(symbol)
+
+    new_rules = {nt: rule for nt, rule in grammar.rules.items() if nt in reachable}
+    return Grammar(new_rules)

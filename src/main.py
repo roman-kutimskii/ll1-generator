@@ -1,6 +1,6 @@
 from src.build_parsing_table import build_parsing_table
 from src.check_line import check_line
-from src.grammar import factorize_grammar, remove_direct_recursion, remove_indirect_recursion
+from src.grammar import factorize_grammar, remove_direct_recursion, remove_indirect_recursion, remove_unreachable_rules
 from src.grammar_utils import parse_grammar, parse_grammar_with_first_set, write_grammar
 from src.table import write_table, read_table
 
@@ -25,13 +25,14 @@ def task3() -> None:
 
     axiom = grammar.rules[axiom_nonterminal]
 
+    grammar = remove_indirect_recursion(factorize_grammar(grammar), axiom.nonterminal)
+
     for production in axiom.productions:
-        if axiom.nonterminal in production.symbols:
+        last_symbol = production.symbols[-1]
+        if axiom.nonterminal in production.symbols or (last_symbol.startswith('<') and last_symbol.endswith('>')):
             grammar.add_production("<axiom>", [axiom_nonterminal, "#"], [])
             axiom_nonterminal = "<axiom>"
             break
-
-    grammar = remove_indirect_recursion(factorize_grammar(grammar))
 
     write_grammar(grammar, axiom_nonterminal)
 
