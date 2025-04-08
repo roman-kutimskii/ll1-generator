@@ -1,18 +1,18 @@
-<axiom> -> <S> # / if b a
+<axiom> -> <S> # / a if b
 <S'> -> ε / # else
 <S'> -> else <S> / else
-<S> -> <P> := <E> / b a
+<S> -> <P> := <E> / a b
 <S> -> if <E> then <S> <S'> / if
-<P'> -> ε / * := ) then # else +
+<P'> -> ε / # ) * + := else then
 <P'> -> ( <E> ) / (
-<P> -> <I> <P'> / b a
+<P> -> <I> <P'> / a b
 <Er> -> + <T> <Er> / +
-<Er> -> ε / then # ) else
-<E> -> <T> <Er> / ( b a
+<Er> -> ε / # ) else then
+<E> -> <T> <Er> / ( a b
 <Tr> -> * <F> <Tr> / *
-<Tr> -> ε / ) then # else +
-<T> -> <F> <Tr> / ( b a
-<F> -> <P> / b a
+<Tr> -> ε / # ) + else then
+<T> -> <F> <Tr> / ( a b
+<F> -> <P> / a b
 <F> -> ( <E> ) / (
 <I> -> a / a
 <I> -> b / b

@@ -1,4 +1,3 @@
-from collections import defaultdict
 from src.grammar_utils import Grammar, Rule, Production
 
 
@@ -6,10 +5,8 @@ def factorize_grammar(grammar: Grammar) -> Grammar:
     new_grammar = Grammar({})
 
     for nonterminal, rule in grammar.rules.items():
-        # Группируем продукции с общими префиксами максимальной длины
         productions_by_prefix = find_common_prefixes(rule.productions)
 
-        # Если нет продукций с общими префиксами, оставляем правило без изменений
         if len(productions_by_prefix) == len(rule.productions):
             new_grammar.rules[nonterminal] = rule
             continue
@@ -18,30 +15,23 @@ def factorize_grammar(grammar: Grammar) -> Grammar:
 
         for prefix, productions in productions_by_prefix.items():
             if len(productions) == 1:
-                # Если префикс уникален, добавляем продукцию без изменений
                 new_rule.productions.append(productions[0])
                 continue
 
-            # Создаем новый нетерминал для общего префикса
             new_nonterminal = f"<{nonterminal.strip('<>')}'>"
 
-            # Добавляем новую продукцию с общим префиксом и новым нетерминалом
-            prefix_symbols = prefix.split('|')
+            prefix_symbols = list(prefix)
             new_rule.productions.append(Production(prefix_symbols + [new_nonterminal], []))
 
-            # Создаем правило для нового нетерминала с оставшимися частями продукций
             suffix_productions = []
             for production in productions:
-                # Извлекаем суффикс после общего префикса
                 suffix = production.symbols[len(prefix_symbols):]
-                # Если суффикс пуст, добавляем эпсилон
                 suffix_productions.append(Production(suffix or ["ε"], []))
 
             new_grammar.rules[new_nonterminal] = Rule(new_nonterminal, suffix_productions)
 
         new_grammar.rules[nonterminal] = new_rule
 
-    # Проверяем, нужна ли дополнительная факторизация
     if any(len(find_common_prefixes(rule.productions)) < len(rule.productions)
            for rule in new_grammar.rules.values()):
         return factorize_grammar(new_grammar)
@@ -49,16 +39,10 @@ def factorize_grammar(grammar: Grammar) -> Grammar:
     return new_grammar
 
 
-def find_common_prefixes(productions: list[Production]) -> dict[str, list[Production]]:
-    """
-    Находит общие префиксы максимальной длины среди продукций.
-    Возвращает словарь, где ключ - это общий префикс (символы через |),
-    а значение - список продукций с этим префиксом.
-    """
+def find_common_prefixes(productions: list[Production]) -> dict[tuple, list[Production]]:
     if not productions:
         return {}
 
-    # Инициализируем результат уникальными продукциями
     result = {}
     processed = set()
 
@@ -66,17 +50,14 @@ def find_common_prefixes(productions: list[Production]) -> dict[str, list[Produc
         if i in processed:
             continue
 
-        # Найдем все продукции с общим префиксом максимальной длины
         common_prefix = []
         common_productions = [prod1]
         processed.add(i)
 
-        # Определяем максимальную длину общего префикса
         for j, prod2 in enumerate(productions[i + 1:], i + 1):
             if j in processed:
                 continue
 
-            # Находим длину общего префикса
             common_length = 0
             min_length = min(len(prod1.symbols), len(prod2.symbols))
 
@@ -86,11 +67,8 @@ def find_common_prefixes(productions: list[Production]) -> dict[str, list[Produc
                 else:
                     break
 
-            # Если нашли общий префикс
             if common_length > 0:
-                # Если это первый общий префикс или он длиннее текущего
                 if not common_prefix or common_length >= len(common_prefix):
-                    # Если он длиннее, сбрасываем список продукций
                     if common_length > len(common_prefix):
                         common_prefix = prod1.symbols[:common_length]
                         common_productions = [prod1, prod2]
@@ -98,13 +76,12 @@ def find_common_prefixes(productions: list[Production]) -> dict[str, list[Produc
                         common_productions.append(prod2)
                     processed.add(j)
 
-        # Добавляем найденный общий префикс в результат
         if len(common_productions) > 1:
-            prefix_key = '|'.join(common_prefix)
+            prefix_key = tuple(common_prefix)
             result[prefix_key] = common_productions
         else:
-            # Для уникальных продукций используем первый символ как ключ
-            prefix_key = f"{prod1.symbols[0] if prod1.symbols else 'ε'}_unique_{i}"
+            first_symbol = prod1.symbols[0] if prod1.symbols else "ε"
+            prefix_key = (f"{first_symbol}_unique_{i}",)
             result[prefix_key] = [prod1]
 
     return result

@@ -68,4 +68,5 @@ def write_grammar(grammar: Grammar, axiom_nonterminal: str) -> None:
             if rule.nonterminal == axiom_nonterminal:
                 continue
             for production in rule.productions:
-                f.write(f"{rule.nonterminal} -> {" ".join(production.symbols)} / {" ".join(production.first_set)}\n")
+                f.write(
+                    f"{rule.nonterminal} -> {" ".join(production.symbols)} / {" ".join(sorted(production.first_set))}\n")
