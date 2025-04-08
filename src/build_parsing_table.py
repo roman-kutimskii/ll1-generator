@@ -29,8 +29,9 @@ def build_parsing_table(grammar: Grammar) -> list[Line]:
                 end, end_set = check_end(symbol, symbols, sub_idx, end_set)
                 stack = (sub_idx != len(symbols) - 1) if is_nonterminal(symbol) else False
 
-                table.append(Line(index, symbol, first_set, shift=is_terminal(symbol), error=True, pointer=pointer,
-                                  stack=stack, end=end))
+                table.append(
+                    Line(index, symbol, first_set, shift=is_terminal(symbol), error=True, pointer=pointer, stack=stack,
+                         end=end))
                 index += 1
 
     return table

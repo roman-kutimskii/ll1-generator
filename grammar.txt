@@ -1,34 +1,7 @@
-<exp> -> <exp> <R> <exp1>
-<exp> -> <exp1>
-<exp1> -> <exp1> <PLUSO> <exp2>
-<exp1> -> <exp2>
-<exp2> -> <exp2> <MULO> <exp3>
-<exp2> -> <exp3>
-<exp3> -> - <exp3>
-<exp3> -> + <exp3>
-<exp3> -> not <exp3>
-<exp3> -> ( <exp> )
-<exp3> -> num
-<exp3> -> <ident>
-<exp3> -> true
-<exp3> -> false
-<ident> -> id
-<ident> -> <ident> . id
-<ident> -> <ident> [ <listexp> ]
-<ident> -> <ident> ( <listexp> )
-<listexp> -> <listexp> , <exp>
-<listexp> -> <exp>
-<R> -> ==
-<R> -> <=
-<R> -> >=
-<R> -> !=
-<R> -> <
-<R> -> >
-<PLUSO> -> +
-<PLUSO> -> -
-<PLUSO> -> or
-<MULO> -> *
-<MULO> -> /
-<MULO> -> div
-<MULO> -> mod
-<MULO> -> and
+<S> -> <A> <B> <C>
+<A> -> <A> a
+<A> -> ε
+<B> -> <B> b
+<B> -> ε
+<C> -> c <C>
+<C> -> ε

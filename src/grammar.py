@@ -32,8 +32,7 @@ def factorize_grammar(grammar: Grammar) -> Grammar:
 
         new_grammar.rules[nonterminal] = new_rule
 
-    if any(len(find_common_prefixes(rule.productions)) < len(rule.productions)
-           for rule in new_grammar.rules.values()):
+    if any(len(find_common_prefixes(rule.productions)) < len(rule.productions) for rule in new_grammar.rules.values()):
         return factorize_grammar(new_grammar)
 
     return new_grammar
@@ -104,9 +103,11 @@ def remove_direct_recursion(grammar: Grammar) -> Grammar:
             new_nonterminal = f"<{nonterminal.strip('<>')}r>"
             new_grammar.rules[new_nonterminal] = Rule(new_nonterminal, [])
 
-            new_grammar.rules[nonterminal] = Rule(nonterminal, [
-                Production(body + [new_nonterminal], []) for body in non_recursive
-            ])
+            new_grammar.rules[nonterminal] = Rule(nonterminal, [])
+            for body in non_recursive:
+                clean_body = [] if body == ["ε"] else body
+                new_body = clean_body + [new_nonterminal]
+                new_grammar.rules[nonterminal].productions.append(Production(new_body, []))
 
             new_grammar.rules[new_nonterminal].productions = [Production(body + [new_nonterminal], []) for body in
                                                               recursive] + [Production(["ε"], [])]
@@ -296,10 +297,8 @@ def calculate_directing_sets(grammar: Grammar, start_symbol: str) -> Grammar:
             if can_derive_empty or "ε" in prod_first:
                 directing_set.update(follow_sets[nonterminal])
 
-            new_production = Production(
-                symbols=production.symbols,
-                first_set=[sym for sym in directing_set if sym != "ε"]
-            )
+            new_production = Production(symbols=production.symbols,
+                                        first_set=[sym for sym in directing_set if sym != "ε"])
             new_rule.productions.append(new_production)
 
         new_grammar.rules[nonterminal] = new_rule

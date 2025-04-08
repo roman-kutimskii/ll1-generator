@@ -1,41 +1,8 @@
-<axiom> -> <exp> # / num ( true false + not - id
-<expr> -> <R> <exp1> <expr> / != < <= == > >=
-<expr> -> ε / # ) , ]
-<exp> -> <exp1> <expr> / ( + - false id not num true
-<exp1r> -> <PLUSO> <exp2> <exp1r> / + - or
-<exp1r> -> ε / != # ) , < <= == > >= ]
-<exp1> -> <exp2> <exp1r> / ( + - false id not num true
-<exp2r> -> <MULO> <exp3> <exp2r> / * / and div mod
-<exp2r> -> ε / != # ) + , - < <= == > >= ] or
-<exp2> -> <exp3> <exp2r> / ( + - false id not num true
-<exp3> -> - <exp3> / -
-<exp3> -> + <exp3> / +
-<exp3> -> not <exp3> / not
-<exp3> -> ( <exp> ) / (
-<exp3> -> num / num
-<exp3> -> <ident> / id
-<exp3> -> true / true
-<exp3> -> false / false
-<ident'> -> . id / .
-<ident'> -> [ <listexp> ] / [
-<ident'> -> ( <listexp> ) / (
-<identr> -> <ident'> <identr> / ( . [
-<identr> -> ε / != # ) * + , - / < <= == > >= ] and div mod or
-<ident> -> id <identr> / id
-<listexpr> -> , <exp> <listexpr> / ,
-<listexpr> -> ε / ) ]
-<listexp> -> <exp> <listexpr> / ( + - false id not num true
-<R> -> == / ==
-<R> -> <= / <=
-<R> -> >= / >=
-<R> -> != / !=
-<R> -> < / <
-<R> -> > / >
-<PLUSO> -> + / +
-<PLUSO> -> - / -
-<PLUSO> -> or / or
-<MULO> -> * / *
-<MULO> -> / / /
-<MULO> -> div / div
-<MULO> -> mod / mod
-<MULO> -> and / and
+<axiom> -> <S> # / a c # b
+<S> -> <Ar> <Br> <C> / # a b c
+<Ar> -> a <Ar> / a
+<Ar> -> ε / # b c
+<Br> -> b <Br> / b
+<Br> -> ε / # c
+<C> -> c <C> / c
+<C> -> ε / #
