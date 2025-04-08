@@ -1,4 +1,4 @@
-<axiom> -> <S> # / a if b
+<axiom> -> <S> # / if a b
 <S'> -> ε / # else
 <S'> -> else <S> / else
 <S> -> <P> := <E> / a b
