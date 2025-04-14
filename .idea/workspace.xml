@@ -5,10 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9aaef7f0-3a97-43e2-b286-3a652b68dd72" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/input.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/util.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grammar.txt" beforeDir="false" afterPath="$PROJECT_DIR$/grammar.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/new-grammar.txt" beforeDir="false" afterPath="$PROJECT_DIR$/new-grammar.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/build_parsing_table.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/build_parsing_table.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/grammar.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar_utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar_utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/table.csv" beforeDir="false" afterPath="$PROJECT_DIR$/table.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +43,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Python.check_line.executor&quot;: &quot;Run&quot;,
+    &quot;Python.lab6.executor&quot;: &quot;Debug&quot;,
     &quot;Python.main.executor&quot;: &quot;Run&quot;,
     &quot;Python.parse_grammar.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -53,7 +60,36 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PycharmProjects\ll1-generator" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.main">
+    <configuration name="lab6" type="PythonConfigurationType" factoryName="Python">
+      <module name="ll1-generator" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.13 (ll1-generator)" />
+      <option name="WORKING_DIRECTORY" value="$ProjectFileDir$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$ProjectFileDir$/lab6/main.py" />
+      <option name="PARAMETERS" value="input.txt output.txt" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python">
       <module name="ll1-generator" />
       <option name="ENV_FILES" value="" />
@@ -70,7 +106,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$ProjectFileDir$/src/main.py" />
-      <option name="PARAMETERS" value="" />
+      <option name="PARAMETERS" value="input.txt" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -78,6 +114,10 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Python.lab6" />
+      <item itemvalue="Python.main" />
+    </list>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -109,7 +149,10 @@
       <workItem from="1744019102882" duration="25779000" />
       <workItem from="1744093792148" duration="10105000" />
       <workItem from="1744112290835" duration="622000" />
-      <workItem from="1744124399851" duration="934000" />
+      <workItem from="1744124399851" duration="7371000" />
+      <workItem from="1744565231862" duration="272000" />
+      <workItem from="1744567251481" duration="5777000" />
+      <workItem from="1744645375140" duration="8380000" />
     </task>
     <task id="LOCAL-00001" summary="Добавить файлы IDE">
       <option name="closed" value="true" />
@@ -140,7 +183,8 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ll1_generator$check_line.coverage" NAME="check_line Coverage Results" MODIFIED="1742844670269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/ll1_generator$lab6.coverage" NAME="lab6 Coverage Results" MODIFIED="1744126961550" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$ProjectFileDir$" />
     <SUITE FILE_PATH="coverage/ll1_generator$parse_grammar.coverage" NAME="parse_grammar Coverage Results" MODIFIED="1742740625701" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/ll1_generator$main.coverage" NAME="main Coverage Results" MODIFIED="1744125094288" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$ProjectFileDir$" />
+    <SUITE FILE_PATH="coverage/ll1_generator$main.coverage" NAME="main Coverage Results" MODIFIED="1744655191393" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$ProjectFileDir$" />
   </component>
 </project>

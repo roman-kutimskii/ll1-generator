@@ -1,8 +1,41 @@
-<axiom> -> <S> # / a c # b
-<S> -> <Ar> <Br> <C> / # a b c
-<Ar> -> a <Ar> / a
-<Ar> -> ε / # b c
-<Br> -> b <Br> / b
-<Br> -> ε / # c
-<C> -> c <C> / c
-<C> -> ε / #
+<axiom> -> <exp> END | FALSE IDENTIFIER INTEGER LEFT_PAREN MINUS NOT PLUS TRUE
+<expr> -> <R> <exp1> <expr> | EQ GREATER GREATER_EQ LESS LESS_EQ NOT_EQ
+<expr> -> ε | COMMA END RIGHT_BRACKET RIGHT_PAREN
+<exp> -> <exp1> <expr> | FALSE IDENTIFIER INTEGER LEFT_PAREN MINUS NOT PLUS TRUE
+<R> -> EQ | EQ
+<R> -> LESS_EQ | LESS_EQ
+<R> -> GREATER_EQ | GREATER_EQ
+<R> -> NOT_EQ | NOT_EQ
+<R> -> LESS | LESS
+<R> -> GREATER | GREATER
+<exp1r> -> <PLUSO> <exp2> <exp1r> | MINUS OR PLUS
+<exp1r> -> ε | COMMA END EQ GREATER GREATER_EQ LESS LESS_EQ NOT_EQ RIGHT_BRACKET RIGHT_PAREN
+<exp1> -> <exp2> <exp1r> | FALSE IDENTIFIER INTEGER LEFT_PAREN MINUS NOT PLUS TRUE
+<PLUSO> -> PLUS | PLUS
+<PLUSO> -> MINUS | MINUS
+<PLUSO> -> OR | OR
+<exp2r> -> <MULO> <exp3> <exp2r> | AND DIV DIVIDE MOD MULTIPLICATION
+<exp2r> -> ε | COMMA END EQ GREATER GREATER_EQ LESS LESS_EQ MINUS NOT_EQ OR PLUS RIGHT_BRACKET RIGHT_PAREN
+<exp2> -> <exp3> <exp2r> | FALSE IDENTIFIER INTEGER LEFT_PAREN MINUS NOT PLUS TRUE
+<MULO> -> MULTIPLICATION | MULTIPLICATION
+<MULO> -> DIVIDE | DIVIDE
+<MULO> -> DIV | DIV
+<MULO> -> MOD | MOD
+<MULO> -> AND | AND
+<exp3> -> MINUS <exp3> | MINUS
+<exp3> -> PLUS <exp3> | PLUS
+<exp3> -> NOT <exp3> | NOT
+<exp3> -> LEFT_PAREN <exp> RIGHT_PAREN | LEFT_PAREN
+<exp3> -> INTEGER | INTEGER
+<exp3> -> TRUE | TRUE
+<exp3> -> FALSE | FALSE
+<exp3> -> <ident> | IDENTIFIER
+<ident'> -> DOT IDENTIFIER | DOT
+<ident'> -> LEFT_BRACKET <listexp> RIGHT_BRACKET | LEFT_BRACKET
+<ident'> -> LEFT_PAREN <listexp> RIGHT_PAREN | LEFT_PAREN
+<identr> -> <ident'> <identr> | DOT LEFT_BRACKET LEFT_PAREN
+<identr> -> ε | AND COMMA DIV DIVIDE END EQ GREATER GREATER_EQ LESS LESS_EQ MINUS MOD MULTIPLICATION NOT_EQ OR PLUS RIGHT_BRACKET RIGHT_PAREN
+<ident> -> IDENTIFIER <identr> | IDENTIFIER
+<listexpr> -> COMMA <exp> <listexpr> | COMMA
+<listexpr> -> ε | RIGHT_BRACKET RIGHT_PAREN
+<listexp> -> <exp> <listexpr> | FALSE IDENTIFIER INTEGER LEFT_PAREN MINUS NOT PLUS TRUE

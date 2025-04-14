@@ -2,15 +2,24 @@ from itertools import chain
 
 from src.grammar_utils import Grammar, Production
 from src.table import Line
+from src.util import is_nonterminal
 
 
-def build_parsing_table(grammar: Grammar) -> list[Line]:
+def build_parsing_table(grammar: Grammar, first_symbol: str) -> list[Line]:
     rule_indices = compute_rule_indices(grammar)
     table = []
     index = 0
     end_set = False
 
-    for rule in grammar.rules.values():
+    ordered_rules = []
+    if first_symbol in grammar.rules:
+        ordered_rules.append(grammar.rules[first_symbol])
+    
+    for nt, rule in grammar.rules.items():
+        if nt != first_symbol:
+            ordered_rules.append(rule)
+
+    for rule in ordered_rules:
         production_symbols = [prod.symbols for prod in rule.productions]
 
         for prod_idx, production in enumerate(rule.productions):
@@ -63,9 +72,6 @@ def check_end(symbol: str, symbols: list[str], index: int, end_set: bool) -> (bo
     end = not end_set and index == len(symbols) - 1 and is_terminal(symbol)
     return end, end_set or end
 
-
-def is_nonterminal(symbol: str) -> bool:
-    return symbol.startswith('<') and symbol.endswith('>')
 
 
 def is_terminal(symbol: str) -> bool:

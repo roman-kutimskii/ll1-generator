@@ -1,26 +1,28 @@
+import sys
+
+from lab6.main import task
 from src.build_parsing_table import build_parsing_table
 from src.check_line import check_line
 from src.grammar import factorize_grammar, remove_direct_recursion, remove_indirect_recursion, remove_unreachable_rules, \
     calculate_directing_sets
-from src.grammar_utils import parse_grammar, parse_grammar_with_first_set, write_grammar
+from src.grammar_utils import parse_grammar, parse_grammar_with_first_set, write_grammar, Grammar
 from src.table import write_table, read_table
 
 
 def task1() -> None:
-    with open("grammar.txt", "r", encoding="utf-8") as f:
+    with open("new-grammar.txt", "r", encoding="utf-8") as f:
         grammar = parse_grammar_with_first_set(f.readlines())
 
-    table = build_parsing_table(grammar)
+    table = build_parsing_table(grammar, list(grammar.rules.keys())[0])
     write_table(table)
 
 
-def task2() -> None:
-    line = "( - a * - ( - 5 ) ) + - ( 5 + - 5 ) + a #"
+def task2(line: str) -> None:
     table = read_table()
     print(check_line(line.split(), table))
 
 
-def task3() -> None:
+def task3() -> tuple[Grammar, str]:
     with open("grammar.txt", "r", encoding="utf-8") as f:
         grammar, axiom_nonterminal = parse_grammar(f.readlines())
 
@@ -43,13 +45,31 @@ def task3() -> None:
         needs_new_axiom = True
 
     if needs_new_axiom:
-        grammar.add_production("<axiom>", [axiom_nonterminal, "#"], [])
+        grammar.add_production("<axiom>", [axiom_nonterminal, "END"], [])
         axiom_nonterminal = "<axiom>"
 
     grammar = calculate_directing_sets(grammar, axiom_nonterminal)
 
     write_grammar(grammar, axiom_nonterminal)
 
+    return grammar, axiom_nonterminal
+
+
+def task4() -> None:
+    if len(sys.argv) != 2:
+        print(f'Usage: python {sys.argv[0]} <input-file>')
+        return
+
+    input_file = sys.argv[1]
+
+    tokens = task(input_file)
+
+    line = " ".join(token.type for token in tokens)
+
+    task3()
+    task1()
+    task2(line)
+
 
 if __name__ == "__main__":
-    task3()
+    task4()

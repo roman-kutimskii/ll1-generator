@@ -1,7 +1,34 @@
-<S> -> <A> <B> <C>
-<A> -> <A> a
-<A> -> ε
-<B> -> <B> b
-<B> -> ε
-<C> -> c <C>
-<C> -> ε
+<exp> -> <exp> <R> <exp1>
+<exp> -> <exp1>
+<R> -> EQ
+<R> -> LESS_EQ
+<R> -> GREATER_EQ
+<R> -> NOT_EQ
+<R> -> LESS
+<R> -> GREATER
+<exp1> -> <exp1> <PLUSO> <exp2>
+<exp1> -> <exp2>
+<PLUSO> -> PLUS
+<PLUSO> -> MINUS
+<PLUSO> -> OR
+<exp2> -> <exp2> <MULO> <exp3>
+<exp2> -> <exp3>
+<MULO> -> MULTIPLICATION
+<MULO> -> DIVIDE
+<MULO> -> DIV
+<MULO> -> MOD
+<MULO> -> AND
+<exp3> -> MINUS <exp3>
+<exp3> -> PLUS <exp3>
+<exp3> -> NOT <exp3>
+<exp3> -> LEFT_PAREN <exp> RIGHT_PAREN
+<exp3> -> INTEGER
+<exp3> -> TRUE
+<exp3> -> FALSE
+<exp3> -> <ident>
+<ident> -> IDENTIFIER
+<ident> -> <ident> DOT IDENTIFIER
+<ident> -> <ident> LEFT_BRACKET <listexp> RIGHT_BRACKET
+<ident> -> <ident> LEFT_PAREN <listexp> RIGHT_PAREN
+<listexp> -> <listexp> COMMA <exp>
+<listexp> -> <exp>

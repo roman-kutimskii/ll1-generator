@@ -32,7 +32,7 @@ class Grammar:
 
 def parse_grammar_with_first_set(contents: list[str]) -> Grammar:
     grammar = Grammar(dict())
-    pattern = re.compile(r"^\s*(<.+>)\s*->(.*)/\s*(.*)\s*$")
+    pattern = re.compile(r"^\s*(<.+>)\s*->(.*)\|\s*(.*)\s*$")
 
     for rule in contents:
         match = pattern.match(rule)
@@ -63,10 +63,10 @@ def write_grammar(grammar: Grammar, axiom_nonterminal: str) -> None:
     with open("new-grammar.txt", "w") as f:
         axiom = grammar.rules[axiom_nonterminal]
         for production in axiom.productions:
-            f.write(f"{axiom.nonterminal} -> {" ".join(production.symbols)} / {" ".join(production.first_set)}\n")
+            f.write(f"{axiom.nonterminal} -> {" ".join(production.symbols)} | {" ".join(sorted(production.first_set))}\n")
         for rule in grammar.rules.values():
             if rule.nonterminal == axiom_nonterminal:
                 continue
             for production in rule.productions:
                 f.write(
-                    f"{rule.nonterminal} -> {" ".join(production.symbols)} / {" ".join(sorted(production.first_set))}\n")
+                    f"{rule.nonterminal} -> {" ".join(production.symbols)} | {" ".join(sorted(production.first_set))}\n")

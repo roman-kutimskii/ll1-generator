@@ -1,4 +1,5 @@
 from src.grammar_utils import Grammar, Rule, Production
+from src.util import is_nonterminal
 
 
 def factorize_grammar(grammar: Grammar) -> Grammar:
@@ -197,7 +198,7 @@ def calculate_directing_sets(grammar: Grammar, start_symbol: str) -> Grammar:
     for rule in grammar.rules.values():
         for production in rule.productions:
             for symbol in production.symbols:
-                if not (symbol.startswith('<') and symbol.endswith('>')):
+                if not (is_nonterminal(symbol)):
                     first_sets[symbol] = {symbol}
 
     for nonterminal in grammar.rules:
@@ -213,7 +214,7 @@ def calculate_directing_sets(grammar: Grammar, start_symbol: str) -> Grammar:
                     if symbol == "ε":
                         continue
 
-                    if not (symbol.startswith('<') and symbol.endswith('>')):
+                    if not (is_nonterminal(symbol)):
                         if symbol not in first_sets[nonterminal]:
                             first_sets[nonterminal].add(symbol)
                             changed = True
@@ -243,7 +244,7 @@ def calculate_directing_sets(grammar: Grammar, start_symbol: str) -> Grammar:
         for nonterminal, rule in grammar.rules.items():
             for production in rule.productions:
                 for i, symbol in enumerate(production.symbols):
-                    if not (symbol.startswith('<') and symbol.endswith('>')) or symbol == "ε":
+                    if not (is_nonterminal(symbol)) or symbol == "ε":
                         continue
 
                     trailing_first = set()
@@ -317,7 +318,7 @@ def calculate_production_first(symbols: list[str], first_sets: dict[str, set[str
         if symbol == "ε":
             continue
 
-        if not (symbol.startswith('<') and symbol.endswith('>')):
+        if not (is_nonterminal(symbol)):
             result.add(symbol)
             all_can_derive_empty = False
             break
