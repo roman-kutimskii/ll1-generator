@@ -1,34 +1,56 @@
-<exp> -> <exp> <R> <exp1>
-<exp> -> <exp1>
-<R> -> EQ
-<R> -> LESS_EQ
-<R> -> GREATER_EQ
-<R> -> NOT_EQ
-<R> -> LESS
-<R> -> GREATER
-<exp1> -> <exp1> <PLUSO> <exp2>
-<exp1> -> <exp2>
-<PLUSO> -> PLUS
-<PLUSO> -> MINUS
-<PLUSO> -> OR
-<exp2> -> <exp2> <MULO> <exp3>
-<exp2> -> <exp3>
-<MULO> -> MULTIPLICATION
-<MULO> -> DIVIDE
-<MULO> -> DIV
-<MULO> -> MOD
-<MULO> -> AND
-<exp3> -> MINUS <exp3>
-<exp3> -> PLUS <exp3>
-<exp3> -> NOT <exp3>
-<exp3> -> LEFT_PAREN <exp> RIGHT_PAREN
-<exp3> -> INTEGER
-<exp3> -> TRUE
-<exp3> -> FALSE
-<exp3> -> <ident>
+<program> -> <block>
+<block> -> <declarations> <statements>
+<declarations> -> <declaration> <declarations>
+<declarations> -> ε
+<declaration> -> <type> IDENTIFIER SEMICOLON
+<type> -> INT
+<type> -> REAL
+<statements> -> ε
+<statements> -> <statement> <statements>
+<statement> -> <assignment>
+<statement> -> <if-statement>
+<statement> -> <while-statement>
+<statement> -> <print-statement>
+<assignment> -> IDENTIFIER ASSIGN <expr> SEMICOLON
+<if-statement> -> IF <expr> THEN <block> END
+<if-statement> -> IF <expr> THEN <block> ELSE <block> END
+<while-statement> -> WHILE <expr> LOOP <block> END
+<print-statement> -> PRINT <expr> SEMICOLON
+<expr> -> <simple-expr>
+<expr> -> <expr> <relation> <simple-expr>
+<relation> -> EQ
+<relation> -> NOT_EQ
+<relation> -> GREATER_EQ
+<relation> -> LESS_EQ
+<relation> -> GREATER
+<relation> -> LESS
+<simple-expr> -> <term>
+<simple-expr> -> <simple-expr> <plus-operator> <term>
+<plus-operator> -> PLUS
+<plus-operator> -> MINUS
+<plus-operator> -> OR
+<term> -> <factor>
+<term> -> <term> <mult-operator> <factor>
+<mult-operator> -> MULTIPLICATION
+<mult-operator> -> DIVIDE
+<mult-operator> -> AND
+<mult-operator> -> DIV
+<mult-operator> -> MOD
+<factor> -> <ident>
 <ident> -> IDENTIFIER
-<ident> -> <ident> DOT IDENTIFIER
-<ident> -> <ident> LEFT_BRACKET <listexp> RIGHT_BRACKET
-<ident> -> <ident> LEFT_PAREN <listexp> RIGHT_PAREN
-<listexp> -> <listexp> COMMA <exp>
-<listexp> -> <exp>
+<ident> -> <comp-id>
+<ident> -> <call-function>
+<comp-id> -> IDENTIFIER
+<comp-id> -> IDENTIFIER DOT <comp-id>
+<call-function> -> <comp-id> LEFT_PAREN <list-simple-expr> RIGHT_PAREN
+<list-simple-expr> -> <simple-expr>
+<list-simple-expr> -> <simple-expr> <list-simple-expr>
+<factor> -> NOT <factor>
+<factor> -> MINUS <factor>
+<factor> -> <bool-value>
+<factor> -> <numeric-value>
+<factor> -> LEFT_PAREN <expr> RIGHT_PAREN
+<bool-value> -> TRUE
+<bool-value> -> FALSE
+<numeric-value> -> INTEGER
+<numeric-value> -> FLOAT

@@ -23,6 +23,11 @@ TOKEN_TYPES = [
     TokenType('PROCEDURE', f'(P|p)(R|r)(O|o)(C|c)(E|e)(D|d)(U|u)(R|r)(E|e)'),
     TokenType('THEN', f'(T|t)(H|h)(E|e)(N|n)'),
     TokenType('TYPE', f'(T|t)(Y|y)(P|p)(E|e)'),
+    TokenType('INT', f'(I|i)(N|n)(T|t)'),
+    TokenType('REAL', f'(R|r)(E|e)(A|a)(L|l)'),
+    TokenType('LOOP', f'(L|l)(O|o)(O|o)(P|p)'),
+    TokenType('WHILE', f'(W|w)(H|h)(I|i)(L|l)(E|e)'),
+    TokenType('PRINT', f'(P|p)(R|r)(I|i)(N|n)(T|t)'),
     TokenType('VAR', f'(V|v)(A|a)(R|r)'),
     TokenType('AND', f'(A|a)(N|n)(D|d)'),
     TokenType('DIV', f'(D|d)(I|i)(V|v)'),
@@ -56,5 +61,6 @@ TOKEN_TYPES = [
     TokenType('SPACE', SPACE),
     TokenType('BAD_STRING', f'\'.*'),
     TokenType('BAD_BLOCK_COMMENT', f'{{.*'),
+    TokenType('#', '#'),
     TokenType('BAD', '.*')
 ]

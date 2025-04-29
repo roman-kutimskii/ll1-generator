@@ -1,41 +1,119 @@
-<axiom> -> <exp> END | FALSE IDENTIFIER INTEGER LEFT_PAREN MINUS NOT PLUS TRUE
-<expr> -> <R> <exp1> <expr> | EQ GREATER GREATER_EQ LESS LESS_EQ NOT_EQ
-<expr> -> ε | COMMA END RIGHT_BRACKET RIGHT_PAREN
-<exp> -> <exp1> <expr> | FALSE IDENTIFIER INTEGER LEFT_PAREN MINUS NOT PLUS TRUE
-<R> -> EQ | EQ
-<R> -> LESS_EQ | LESS_EQ
-<R> -> GREATER_EQ | GREATER_EQ
-<R> -> NOT_EQ | NOT_EQ
-<R> -> LESS | LESS
-<R> -> GREATER | GREATER
-<exp1r> -> <PLUSO> <exp2> <exp1r> | MINUS OR PLUS
-<exp1r> -> ε | COMMA END EQ GREATER GREATER_EQ LESS LESS_EQ NOT_EQ RIGHT_BRACKET RIGHT_PAREN
-<exp1> -> <exp2> <exp1r> | FALSE IDENTIFIER INTEGER LEFT_PAREN MINUS NOT PLUS TRUE
-<PLUSO> -> PLUS | PLUS
-<PLUSO> -> MINUS | MINUS
-<PLUSO> -> OR | OR
-<exp2r> -> <MULO> <exp3> <exp2r> | AND DIV DIVIDE MOD MULTIPLICATION
-<exp2r> -> ε | COMMA END EQ GREATER GREATER_EQ LESS LESS_EQ MINUS NOT_EQ OR PLUS RIGHT_BRACKET RIGHT_PAREN
-<exp2> -> <exp3> <exp2r> | FALSE IDENTIFIER INTEGER LEFT_PAREN MINUS NOT PLUS TRUE
-<MULO> -> MULTIPLICATION | MULTIPLICATION
-<MULO> -> DIVIDE | DIVIDE
-<MULO> -> DIV | DIV
-<MULO> -> MOD | MOD
-<MULO> -> AND | AND
-<exp3> -> MINUS <exp3> | MINUS
-<exp3> -> PLUS <exp3> | PLUS
-<exp3> -> NOT <exp3> | NOT
-<exp3> -> LEFT_PAREN <exp> RIGHT_PAREN | LEFT_PAREN
-<exp3> -> INTEGER | INTEGER
-<exp3> -> TRUE | TRUE
-<exp3> -> FALSE | FALSE
-<exp3> -> <ident> | IDENTIFIER
-<ident'> -> DOT IDENTIFIER | DOT
-<ident'> -> LEFT_BRACKET <listexp> RIGHT_BRACKET | LEFT_BRACKET
-<ident'> -> LEFT_PAREN <listexp> RIGHT_PAREN | LEFT_PAREN
-<identr> -> <ident'> <identr> | DOT LEFT_BRACKET LEFT_PAREN
-<identr> -> ε | AND COMMA DIV DIVIDE END EQ GREATER GREATER_EQ LESS LESS_EQ MINUS MOD MULTIPLICATION NOT_EQ OR PLUS RIGHT_BRACKET RIGHT_PAREN
-<ident> -> IDENTIFIER <identr> | IDENTIFIER
-<listexpr> -> COMMA <exp> <listexpr> | COMMA
-<listexpr> -> ε | RIGHT_BRACKET RIGHT_PAREN
-<listexp> -> <exp> <listexpr> | FALSE IDENTIFIER INTEGER LEFT_PAREN MINUS NOT PLUS TRUE
+<axiom> -> <program> # | # IDENTIFIER IF INT PRINT REAL WHILE
+<program> -> <block> | # IDENTIFIER IF INT PRINT REAL WHILE
+<block> -> <declarations> <statements> | # ELSE END IDENTIFIER IF INT PRINT REAL WHILE
+<declarations> -> <declaration> <declarations> | INT REAL
+<declarations> -> ε | # ELSE END IDENTIFIER IF PRINT WHILE
+<declaration> -> <type> IDENTIFIER SEMICOLON | INT REAL
+<type> -> INT | INT
+<type> -> REAL | REAL
+<statements> -> ε | # ELSE END
+<statements> -> <statement> <statements> | IDENTIFIER IF PRINT WHILE
+<statement> -> <assignment> | IDENTIFIER
+<statement> -> <if-statement> | IF
+<statement> -> <while-statement> | WHILE
+<statement> -> <print-statement> | PRINT
+<assignment> -> IDENTIFIER ASSIGN <expr> SEMICOLON | IDENTIFIER
+<if-statement'> -> END | END
+<if-statement'> -> ELSE <block> END | ELSE
+<if-statement> -> IF <expr> THEN <block> <if-statement'> | IF
+<while-statement> -> WHILE <expr> LOOP <block> END | WHILE
+<print-statement> -> PRINT <expr> SEMICOLON | PRINT
+<exprr> -> <relation> <simple-expr> <exprr> | EQ GREATER GREATER_EQ LESS LESS_EQ NOT_EQ
+<exprr> -> ε | LOOP RIGHT_PAREN SEMICOLON THEN
+<expr> -> <simple-expr> <exprr> | FALSE FLOAT IDENTIFIER INTEGER LEFT_PAREN MINUS NOT TRUE
+<relation> -> EQ | EQ
+<relation> -> NOT_EQ | NOT_EQ
+<relation> -> GREATER_EQ | GREATER_EQ
+<relation> -> LESS_EQ | LESS_EQ
+<relation> -> GREATER | GREATER
+<relation> -> LESS | LESS
+<simple-exprr> -> <plus-operator> <term> <simple-exprr> | MINUS OR PLUS
+<simple-exprr> -> ε | EQ GREATER GREATER_EQ LESS LESS_EQ LOOP MINUS NOT_EQ OR PLUS RIGHT_PAREN SEMICOLON THEN
+<simple-expr> -> IDENTIFIER <simple-exprr> | IDENTIFIER
+<simple-expr> -> IDENTIFIER <comp-id'> <simple-exprr> | IDENTIFIER
+<simple-expr> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN <simple-exprr> | IDENTIFIER
+<simple-expr> -> NOT <factor> <simple-exprr> | NOT
+<simple-expr> -> MINUS <factor> <simple-exprr> | MINUS
+<simple-expr> -> TRUE <simple-exprr> | TRUE
+<simple-expr> -> FALSE <simple-exprr> | FALSE
+<simple-expr> -> INTEGER <simple-exprr> | INTEGER
+<simple-expr> -> FLOAT <simple-exprr> | FLOAT
+<simple-expr> -> LEFT_PAREN <expr> RIGHT_PAREN <simple-exprr> | LEFT_PAREN
+<simple-expr> -> IDENTIFIER <mult-operator> <factor> <simple-exprr> | IDENTIFIER
+<simple-expr> -> IDENTIFIER <comp-id'> <mult-operator> <factor> <simple-exprr> | IDENTIFIER
+<simple-expr> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN <mult-operator> <factor> <simple-exprr> | IDENTIFIER
+<simple-expr> -> NOT <factor> <mult-operator> <factor> <simple-exprr> | NOT
+<simple-expr> -> MINUS <factor> <mult-operator> <factor> <simple-exprr> | MINUS
+<simple-expr> -> TRUE <mult-operator> <factor> <simple-exprr> | TRUE
+<simple-expr> -> FALSE <mult-operator> <factor> <simple-exprr> | FALSE
+<simple-expr> -> INTEGER <mult-operator> <factor> <simple-exprr> | INTEGER
+<simple-expr> -> FLOAT <mult-operator> <factor> <simple-exprr> | FLOAT
+<simple-expr> -> LEFT_PAREN <expr> RIGHT_PAREN <mult-operator> <factor> <simple-exprr> | LEFT_PAREN
+<simple-expr> -> IDENTIFIER <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | IDENTIFIER
+<simple-expr> -> IDENTIFIER <comp-id'> <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | IDENTIFIER
+<simple-expr> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | IDENTIFIER
+<simple-expr> -> NOT <factor> <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | NOT
+<simple-expr> -> MINUS <factor> <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | MINUS
+<simple-expr> -> TRUE <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | TRUE
+<simple-expr> -> FALSE <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | FALSE
+<simple-expr> -> INTEGER <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | INTEGER
+<simple-expr> -> FLOAT <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | FLOAT
+<simple-expr> -> LEFT_PAREN <expr> RIGHT_PAREN <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | LEFT_PAREN
+<simple-expr> -> <term> <mult-operator> <factor> <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | FALSE FLOAT IDENTIFIER INTEGER LEFT_PAREN MINUS NOT TRUE
+<plus-operator> -> PLUS | PLUS
+<plus-operator> -> MINUS | MINUS
+<plus-operator> -> OR | OR
+<termr> -> <mult-operator> <factor> <termr> | AND DIV DIVIDE MOD MULTIPLICATION
+<termr> -> ε | AND DIV DIVIDE EQ FALSE FLOAT GREATER GREATER_EQ IDENTIFIER INTEGER LEFT_PAREN LESS LESS_EQ LOOP MINUS MOD MULTIPLICATION NOT NOT_EQ OR PLUS RIGHT_PAREN SEMICOLON THEN TRUE
+<term> -> IDENTIFIER <termr> | IDENTIFIER
+<term> -> IDENTIFIER <comp-id'> <termr> | IDENTIFIER
+<term> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN <termr> | IDENTIFIER
+<term> -> NOT <factor> <termr> | NOT
+<term> -> MINUS <factor> <termr> | MINUS
+<term> -> TRUE <termr> | TRUE
+<term> -> FALSE <termr> | FALSE
+<term> -> INTEGER <termr> | INTEGER
+<term> -> FLOAT <termr> | FLOAT
+<term> -> LEFT_PAREN <expr> RIGHT_PAREN <termr> | LEFT_PAREN
+<mult-operator> -> MULTIPLICATION | MULTIPLICATION
+<mult-operator> -> DIVIDE | DIVIDE
+<mult-operator> -> AND | AND
+<mult-operator> -> DIV | DIV
+<mult-operator> -> MOD | MOD
+<factor> -> IDENTIFIER | IDENTIFIER
+<factor> -> IDENTIFIER <comp-id'> | IDENTIFIER
+<factor> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN | IDENTIFIER
+<factor> -> NOT <factor> | NOT
+<factor> -> MINUS <factor> | MINUS
+<factor> -> TRUE | TRUE
+<factor> -> FALSE | FALSE
+<factor> -> INTEGER | INTEGER
+<factor> -> FLOAT | FLOAT
+<factor> -> LEFT_PAREN <expr> RIGHT_PAREN | LEFT_PAREN
+<comp-id'> -> ε | AND DIV DIVIDE EQ FALSE FLOAT GREATER GREATER_EQ IDENTIFIER INTEGER LEFT_PAREN LESS LESS_EQ LOOP MINUS MOD MULTIPLICATION NOT NOT_EQ OR PLUS RIGHT_PAREN SEMICOLON THEN TRUE
+<comp-id'> -> DOT <comp-id> | DOT
+<comp-id> -> IDENTIFIER <comp-id'> | IDENTIFIER
+<list-simple-expr'> -> ε | RIGHT_PAREN
+<list-simple-expr'> -> <list-simple-expr> | FALSE FLOAT IDENTIFIER INTEGER LEFT_PAREN MINUS NOT TRUE
+<list-simple-expr> -> IDENTIFIER <list-simple-expr'> | IDENTIFIER
+<list-simple-expr> -> IDENTIFIER <comp-id'> <list-simple-expr'> | IDENTIFIER
+<list-simple-expr> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN <list-simple-expr'> | IDENTIFIER
+<list-simple-expr> -> NOT <factor> <list-simple-expr'> | NOT
+<list-simple-expr> -> MINUS <factor> <list-simple-expr'> | MINUS
+<list-simple-expr> -> TRUE <list-simple-expr'> | TRUE
+<list-simple-expr> -> FALSE <list-simple-expr'> | FALSE
+<list-simple-expr> -> INTEGER <list-simple-expr'> | INTEGER
+<list-simple-expr> -> FLOAT <list-simple-expr'> | FLOAT
+<list-simple-expr> -> LEFT_PAREN <expr> RIGHT_PAREN <list-simple-expr'> | LEFT_PAREN
+<list-simple-expr> -> IDENTIFIER <mult-operator> <factor> <list-simple-expr'> | IDENTIFIER
+<list-simple-expr> -> IDENTIFIER <comp-id'> <mult-operator> <factor> <list-simple-expr'> | IDENTIFIER
+<list-simple-expr> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN <mult-operator> <factor> <list-simple-expr'> | IDENTIFIER
+<list-simple-expr> -> NOT <factor> <mult-operator> <factor> <list-simple-expr'> | NOT
+<list-simple-expr> -> MINUS <factor> <mult-operator> <factor> <list-simple-expr'> | MINUS
+<list-simple-expr> -> TRUE <mult-operator> <factor> <list-simple-expr'> | TRUE
+<list-simple-expr> -> FALSE <mult-operator> <factor> <list-simple-expr'> | FALSE
+<list-simple-expr> -> INTEGER <mult-operator> <factor> <list-simple-expr'> | INTEGER
+<list-simple-expr> -> FLOAT <mult-operator> <factor> <list-simple-expr'> | FLOAT
+<list-simple-expr> -> LEFT_PAREN <expr> RIGHT_PAREN <mult-operator> <factor> <list-simple-expr'> | LEFT_PAREN
+<list-simple-expr> -> <term> <mult-operator> <factor> <mult-operator> <factor> <list-simple-expr'> | FALSE FLOAT IDENTIFIER INTEGER LEFT_PAREN MINUS NOT TRUE
+<list-simple-expr> -> <simple-expr> <plus-operator> <term> <list-simple-expr'> | FALSE FLOAT IDENTIFIER INTEGER LEFT_PAREN MINUS NOT TRUE

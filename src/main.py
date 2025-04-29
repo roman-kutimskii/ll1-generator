@@ -45,7 +45,7 @@ def task3() -> tuple[Grammar, str]:
         needs_new_axiom = True
 
     if needs_new_axiom:
-        grammar.add_production("<axiom>", [axiom_nonterminal, "END"], [])
+        grammar.add_production("<axiom>", [axiom_nonterminal, "#"], [])
         axiom_nonterminal = "<axiom>"
 
     grammar = calculate_directing_sets(grammar, axiom_nonterminal)
