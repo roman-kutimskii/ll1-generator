@@ -2,7 +2,7 @@
 <block> -> <declarations> <statements>
 <declarations> -> <declaration> <declarations>
 <declarations> -> ε
-<declaration> -> <type> IDENTIFIER SEMICOLON
+<declaration> -> <type> <ident> SEMICOLON
 <type> -> INT
 <type> -> REAL
 <statements> -> ε
@@ -11,7 +11,7 @@
 <statement> -> <if-statement>
 <statement> -> <while-statement>
 <statement> -> <print-statement>
-<assignment> -> IDENTIFIER ASSIGN <expr> SEMICOLON
+<assignment> -> <ident> ASSIGN <expr> SEMICOLON
 <if-statement> -> IF <expr> THEN <block> END
 <if-statement> -> IF <expr> THEN <block> ELSE <block> END
 <while-statement> -> WHILE <expr> LOOP <block> END
@@ -36,15 +36,15 @@
 <mult-operator> -> AND
 <mult-operator> -> DIV
 <mult-operator> -> MOD
-<factor> -> <ident>
-<ident> -> IDENTIFIER
 <ident> -> <comp-id>
+<ident> -> IDENTIFIER
 <ident> -> <call-function>
 <comp-id> -> IDENTIFIER
 <comp-id> -> IDENTIFIER DOT <comp-id>
 <call-function> -> <comp-id> LEFT_PAREN <list-simple-expr> RIGHT_PAREN
 <list-simple-expr> -> <simple-expr>
 <list-simple-expr> -> <simple-expr> <list-simple-expr>
+<factor> -> <ident>
 <factor> -> NOT <factor>
 <factor> -> MINUS <factor>
 <factor> -> <bool-value>

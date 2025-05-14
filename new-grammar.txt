@@ -3,21 +3,19 @@
 <block> -> <declarations> <statements> | # ELSE END IDENTIFIER IF INT PRINT REAL WHILE
 <declarations> -> <declaration> <declarations> | INT REAL
 <declarations> -> ε | # ELSE END IDENTIFIER IF PRINT WHILE
-<declaration> -> <type> IDENTIFIER SEMICOLON | INT REAL
+<declaration> -> <type> <ident> SEMICOLON | INT REAL
 <type> -> INT | INT
 <type> -> REAL | REAL
 <statements> -> ε | # ELSE END
 <statements> -> <statement> <statements> | IDENTIFIER IF PRINT WHILE
-<statement> -> <assignment> | IDENTIFIER
-<statement> -> <if-statement> | IF
-<statement> -> <while-statement> | WHILE
-<statement> -> <print-statement> | PRINT
-<assignment> -> IDENTIFIER ASSIGN <expr> SEMICOLON | IDENTIFIER
+<statement> -> IDENTIFIER <comp-id'> ASSIGN <expr> SEMICOLON | IDENTIFIER
+<statement> -> IDENTIFIER ASSIGN <expr> SEMICOLON | IDENTIFIER
+<statement> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN ASSIGN <expr> SEMICOLON | IDENTIFIER
+<statement> -> IF <expr> THEN <block> <if-statement'> | IF
+<statement> -> WHILE <expr> LOOP <block> END | WHILE
+<statement> -> PRINT <expr> SEMICOLON | PRINT
 <if-statement'> -> END | END
 <if-statement'> -> ELSE <block> END | ELSE
-<if-statement> -> IF <expr> THEN <block> <if-statement'> | IF
-<while-statement> -> WHILE <expr> LOOP <block> END | WHILE
-<print-statement> -> PRINT <expr> SEMICOLON | PRINT
 <exprr> -> <relation> <simple-expr> <exprr> | EQ GREATER GREATER_EQ LESS LESS_EQ NOT_EQ
 <exprr> -> ε | LOOP RIGHT_PAREN SEMICOLON THEN
 <expr> -> <simple-expr> <exprr> | FALSE FLOAT IDENTIFIER INTEGER LEFT_PAREN MINUS NOT TRUE
@@ -29,8 +27,8 @@
 <relation> -> LESS | LESS
 <simple-exprr> -> <plus-operator> <term> <simple-exprr> | MINUS OR PLUS
 <simple-exprr> -> ε | EQ GREATER GREATER_EQ LESS LESS_EQ LOOP MINUS NOT_EQ OR PLUS RIGHT_PAREN SEMICOLON THEN
-<simple-expr> -> IDENTIFIER <simple-exprr> | IDENTIFIER
 <simple-expr> -> IDENTIFIER <comp-id'> <simple-exprr> | IDENTIFIER
+<simple-expr> -> IDENTIFIER <simple-exprr> | IDENTIFIER
 <simple-expr> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN <simple-exprr> | IDENTIFIER
 <simple-expr> -> NOT <factor> <simple-exprr> | NOT
 <simple-expr> -> MINUS <factor> <simple-exprr> | MINUS
@@ -39,8 +37,8 @@
 <simple-expr> -> INTEGER <simple-exprr> | INTEGER
 <simple-expr> -> FLOAT <simple-exprr> | FLOAT
 <simple-expr> -> LEFT_PAREN <expr> RIGHT_PAREN <simple-exprr> | LEFT_PAREN
-<simple-expr> -> IDENTIFIER <mult-operator> <factor> <simple-exprr> | IDENTIFIER
 <simple-expr> -> IDENTIFIER <comp-id'> <mult-operator> <factor> <simple-exprr> | IDENTIFIER
+<simple-expr> -> IDENTIFIER <mult-operator> <factor> <simple-exprr> | IDENTIFIER
 <simple-expr> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN <mult-operator> <factor> <simple-exprr> | IDENTIFIER
 <simple-expr> -> NOT <factor> <mult-operator> <factor> <simple-exprr> | NOT
 <simple-expr> -> MINUS <factor> <mult-operator> <factor> <simple-exprr> | MINUS
@@ -49,8 +47,8 @@
 <simple-expr> -> INTEGER <mult-operator> <factor> <simple-exprr> | INTEGER
 <simple-expr> -> FLOAT <mult-operator> <factor> <simple-exprr> | FLOAT
 <simple-expr> -> LEFT_PAREN <expr> RIGHT_PAREN <mult-operator> <factor> <simple-exprr> | LEFT_PAREN
-<simple-expr> -> IDENTIFIER <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | IDENTIFIER
 <simple-expr> -> IDENTIFIER <comp-id'> <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | IDENTIFIER
+<simple-expr> -> IDENTIFIER <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | IDENTIFIER
 <simple-expr> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | IDENTIFIER
 <simple-expr> -> NOT <factor> <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | NOT
 <simple-expr> -> MINUS <factor> <mult-operator> <factor> <mult-operator> <factor> <simple-exprr> | MINUS
@@ -65,8 +63,8 @@
 <plus-operator> -> OR | OR
 <termr> -> <mult-operator> <factor> <termr> | AND DIV DIVIDE MOD MULTIPLICATION
 <termr> -> ε | AND DIV DIVIDE EQ FALSE FLOAT GREATER GREATER_EQ IDENTIFIER INTEGER LEFT_PAREN LESS LESS_EQ LOOP MINUS MOD MULTIPLICATION NOT NOT_EQ OR PLUS RIGHT_PAREN SEMICOLON THEN TRUE
-<term> -> IDENTIFIER <termr> | IDENTIFIER
 <term> -> IDENTIFIER <comp-id'> <termr> | IDENTIFIER
+<term> -> IDENTIFIER <termr> | IDENTIFIER
 <term> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN <termr> | IDENTIFIER
 <term> -> NOT <factor> <termr> | NOT
 <term> -> MINUS <factor> <termr> | MINUS
@@ -80,23 +78,16 @@
 <mult-operator> -> AND | AND
 <mult-operator> -> DIV | DIV
 <mult-operator> -> MOD | MOD
-<factor> -> IDENTIFIER | IDENTIFIER
-<factor> -> IDENTIFIER <comp-id'> | IDENTIFIER
-<factor> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN | IDENTIFIER
-<factor> -> NOT <factor> | NOT
-<factor> -> MINUS <factor> | MINUS
-<factor> -> TRUE | TRUE
-<factor> -> FALSE | FALSE
-<factor> -> INTEGER | INTEGER
-<factor> -> FLOAT | FLOAT
-<factor> -> LEFT_PAREN <expr> RIGHT_PAREN | LEFT_PAREN
-<comp-id'> -> ε | AND DIV DIVIDE EQ FALSE FLOAT GREATER GREATER_EQ IDENTIFIER INTEGER LEFT_PAREN LESS LESS_EQ LOOP MINUS MOD MULTIPLICATION NOT NOT_EQ OR PLUS RIGHT_PAREN SEMICOLON THEN TRUE
+<ident> -> IDENTIFIER <comp-id'> | IDENTIFIER
+<ident> -> IDENTIFIER | IDENTIFIER
+<ident> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN | IDENTIFIER
+<comp-id'> -> ε | AND ASSIGN DIV DIVIDE EQ FALSE FLOAT GREATER GREATER_EQ IDENTIFIER INTEGER LEFT_PAREN LESS LESS_EQ LOOP MINUS MOD MULTIPLICATION NOT NOT_EQ OR PLUS RIGHT_PAREN SEMICOLON THEN TRUE
 <comp-id'> -> DOT <comp-id> | DOT
 <comp-id> -> IDENTIFIER <comp-id'> | IDENTIFIER
 <list-simple-expr'> -> ε | RIGHT_PAREN
 <list-simple-expr'> -> <list-simple-expr> | FALSE FLOAT IDENTIFIER INTEGER LEFT_PAREN MINUS NOT TRUE
-<list-simple-expr> -> IDENTIFIER <list-simple-expr'> | IDENTIFIER
 <list-simple-expr> -> IDENTIFIER <comp-id'> <list-simple-expr'> | IDENTIFIER
+<list-simple-expr> -> IDENTIFIER <list-simple-expr'> | IDENTIFIER
 <list-simple-expr> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN <list-simple-expr'> | IDENTIFIER
 <list-simple-expr> -> NOT <factor> <list-simple-expr'> | NOT
 <list-simple-expr> -> MINUS <factor> <list-simple-expr'> | MINUS
@@ -105,8 +96,8 @@
 <list-simple-expr> -> INTEGER <list-simple-expr'> | INTEGER
 <list-simple-expr> -> FLOAT <list-simple-expr'> | FLOAT
 <list-simple-expr> -> LEFT_PAREN <expr> RIGHT_PAREN <list-simple-expr'> | LEFT_PAREN
-<list-simple-expr> -> IDENTIFIER <mult-operator> <factor> <list-simple-expr'> | IDENTIFIER
 <list-simple-expr> -> IDENTIFIER <comp-id'> <mult-operator> <factor> <list-simple-expr'> | IDENTIFIER
+<list-simple-expr> -> IDENTIFIER <mult-operator> <factor> <list-simple-expr'> | IDENTIFIER
 <list-simple-expr> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN <mult-operator> <factor> <list-simple-expr'> | IDENTIFIER
 <list-simple-expr> -> NOT <factor> <mult-operator> <factor> <list-simple-expr'> | NOT
 <list-simple-expr> -> MINUS <factor> <mult-operator> <factor> <list-simple-expr'> | MINUS
@@ -117,3 +108,13 @@
 <list-simple-expr> -> LEFT_PAREN <expr> RIGHT_PAREN <mult-operator> <factor> <list-simple-expr'> | LEFT_PAREN
 <list-simple-expr> -> <term> <mult-operator> <factor> <mult-operator> <factor> <list-simple-expr'> | FALSE FLOAT IDENTIFIER INTEGER LEFT_PAREN MINUS NOT TRUE
 <list-simple-expr> -> <simple-expr> <plus-operator> <term> <list-simple-expr'> | FALSE FLOAT IDENTIFIER INTEGER LEFT_PAREN MINUS NOT TRUE
+<factor> -> IDENTIFIER <comp-id'> | IDENTIFIER
+<factor> -> IDENTIFIER | IDENTIFIER
+<factor> -> IDENTIFIER <comp-id'> LEFT_PAREN <list-simple-expr> RIGHT_PAREN | IDENTIFIER
+<factor> -> NOT <factor> | NOT
+<factor> -> MINUS <factor> | MINUS
+<factor> -> TRUE | TRUE
+<factor> -> FALSE | FALSE
+<factor> -> INTEGER | INTEGER
+<factor> -> FLOAT | FLOAT
+<factor> -> LEFT_PAREN <expr> RIGHT_PAREN | LEFT_PAREN

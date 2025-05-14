@@ -16,7 +16,7 @@ def check_line(line: list[str], table: list[Line]) -> str:
 
         if symbol not in current.first_set:
             if current.error:
-                return f"Error at index {index}: '{symbol}' not in first set"
+                return f"Error at index {index}: '{symbol}' not in {current.first_set}"
             else:
                 current_position += 1
                 continue

@@ -1,3 +1,4 @@
+import re
 import sys
 
 from lab6.main import task
@@ -17,9 +18,9 @@ def task1() -> None:
     write_table(table)
 
 
-def task2(line: str) -> None:
+def task2(line: str) -> str:
     table = read_table()
-    print(check_line(line.split(), table))
+    return check_line(line.split(), table)
 
 
 def task3() -> tuple[Grammar, str]:
@@ -68,7 +69,17 @@ def task4() -> None:
 
     task3()
     task1()
-    task2(line)
+    error = task2(line)
+    if error != "Ok":
+        pattern = r"Error at index (\d+): '([^']+)'.*"
+        match = re.match(pattern, error)
+        if match:
+            index = int(match.group(1))
+            symbol = match.group(2)
+            print(f"Index: {tokens[index].pos}")
+            print(f"Symbol: {symbol}")
+
+    print(error)
 
 
 if __name__ == "__main__":
