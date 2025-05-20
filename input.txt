@@ -1,6 +1,61 @@
-if (a.b + - ( b.a * c * 5.2) + - (- 25)) <= (-(-(- a * - a.b.c))) then
-    a := 5;
+// Объявление переменных разных типов
+int number;
+int counter;
+int result;
+real pi;
+real calculation;
+int is.positive;
+
+// Присваивание значений
+number := 10;
+counter := 0;
+pi := 3.14;
+is.positive := true;
+
+// Демонстрация арифметических операций
+calculation := pi * 2.0;
+result := 20 div 3;  // целочисленное деление
+result := result + 5;
+result := result - 2;
+result := 15 mod 4;  // остаток от деления
+
+// Демонстрация условных операторов и логических выражений
+if number > 5 and is.positive = true then
+    print number;
+    if number mod 2 = 0 then
+        print 1;
+    else
+        print 0;
+    end
+end
+
+// Демонстрация составных условий
+if number <= 20 and not false then
+    result := result + 1;
+end
+
+// Демонстрация цикла while с вложенным условием
+while counter < 5 loop
+    if counter mod 2 = 0 then
+        print counter;
+    else
+        result := result + counter;
+    end
+    counter := counter + 1;
+end
+
+// Демонстрация логических операторов
+if not (number < 0) or (counter >= 5) then
+    print result;
+end
+
+// Демонстрация работы со скобками в выражениях
+result := (number + 5) * (counter - 1);
+
+// Демонстрация сравнений
+if result != 0 and result >= number then
+    print result;
 else
-    a := 3.5;
+    print number;
 end
 #

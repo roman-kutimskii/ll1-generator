@@ -76,7 +76,7 @@ def task4() -> None:
         if match:
             index = int(match.group(1))
             symbol = match.group(2)
-            print(f"Index: {tokens[index].pos}")
+            print(f"Index: {tokens[index].pos} ({tokens[index].value})")
             print(f"Symbol: {symbol}")
 
     print(error)

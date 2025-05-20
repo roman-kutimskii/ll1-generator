@@ -46,7 +46,7 @@ TOKEN_TYPES = [
     TokenType('RIGHT_PAREN', '\\)'),
     TokenType('LEFT_BRACKET', '['),
     TokenType('RIGHT_BRACKET', ']'),
-    TokenType('EQ', '=='),
+    TokenType('EQ', '='),
     TokenType('LESS_EQ', '<='),
     TokenType('GREATER_EQ', '>='),
     TokenType('NOT_EQ', '!='),
