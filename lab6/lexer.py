@@ -50,7 +50,7 @@ class Lexer:
                             'ARRAY', 'BEGIN', 'ELSE', 'END', 'IF', 'OF', 'OR', 'PROGRAM', 'PROCEDURE', 'THEN',
                             'TYPE', 'VAR', 'INTEGER', 'IDENTIFIER'):
                         if self._is_not_wrapped(result):
-                            token_name = 'BAD'
+                            continue
                     if token_name == 'INTEGER':
                         if len(result) > 16:
                             token_name = 'BAD'
