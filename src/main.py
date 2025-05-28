@@ -6,7 +6,8 @@ from src.build_parsing_table import build_parsing_table
 from src.check_line import check_line
 from src.grammar import factorize_grammar, remove_direct_recursion, remove_indirect_recursion, remove_unreachable_rules, \
     calculate_directing_sets
-from src.grammar_utils import parse_grammar, parse_grammar_with_first_set, write_grammar, Grammar
+from src.grammar_utils import parse_grammar, parse_grammar_with_first_set, write_grammar
+from src.grammar_validation import validate_grammar
 from src.table import write_table, read_table
 
 
@@ -23,9 +24,14 @@ def task2(line: str) -> str:
     return check_line(line.split(), table)
 
 
-def task3() -> tuple[Grammar, str]:
+def task3() -> str | None:
     with open("grammar.txt", "r", encoding="utf-8") as f:
         grammar, axiom_nonterminal = parse_grammar(f.readlines())
+
+    error = validate_grammar(grammar, axiom_nonterminal)
+
+    if error:
+        return error
 
     grammar = factorize_grammar(grammar)
 
@@ -53,7 +59,7 @@ def task3() -> tuple[Grammar, str]:
 
     write_grammar(grammar, axiom_nonterminal)
 
-    return grammar, axiom_nonterminal
+    return None
 
 
 def task4() -> None:
@@ -67,7 +73,12 @@ def task4() -> None:
 
     line = " ".join(token.type for token in tokens)
 
-    task3()
+    error = task3()
+
+    if error:
+        print(error)
+        return
+
     task1()
     error = task2(line)
     if error != "Ok":
