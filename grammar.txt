@@ -1,49 +1,75 @@
-<program> -> <block>
-<block> -> <declarations> <statements>
-<declarations> -> <declaration> <declarations>
-<declarations> -> ε
-<declaration> -> <type> <ident> SEMICOLON
+<program> -> PROGRAM IDENTIFIER SEMICOLON <block> DOT
+<program> -> PROGRAM IDENTIFIER SEMICOLON <var_decl> <block> DOT
+<program> -> PROGRAM IDENTIFIER SEMICOLON
+
+<var_decl> -> VAR <decl_list>
+
+<decl_list> -> <decl> SEMICOLON <decl_list>
+<decl_list> -> <decl> SEMICOLON
+
+<block> -> BEGIN <stmt_list>
+
+<stmt_list> -> END
+<stmt_list> -> <stmt> <stmt_list>
+
+<stmt> -> <assign> SEMICOLON
+<stmt> -> <if_stmt>
+<stmt> -> <while_stmt>
+<stmt> -> <io> SEMICOLON
+<stmt> -> <out> SEMICOLON
+<stmt> -> <block>
+<stmt> -> SEMICOLON
+
+<decl> -> <ident_list> COLON <type>
+<decl> -> TYPE IDENTIFIER EQ <type>
+
 <type> -> INT
 <type> -> REAL
-<statements> -> <statement> <statements>
-<statements> -> ε
-<statement> -> <ident> ASSIGN <expr> SEMICOLON
-<statement> -> <if-statement>
-<statement> -> WHILE <expr> LOOP <block> END
-<statement> -> PRINT <expr> SEMICOLON
-<if-statement> -> IF <expr> THEN <block> END
-<if-statement> -> IF <expr> THEN <block> ELSE <block> END
-<expr> -> <simple-expr>
-<expr> -> <expr> <relation> <simple-expr>
-<relation> -> EQ
-<relation> -> NOT_EQ
-<relation> -> GREATER_EQ
-<relation> -> LESS_EQ
-<relation> -> GREATER
-<relation> -> LESS
-<simple-expr> -> <term>
-<simple-expr> -> <simple-expr> <plus-operator> <term>
-<plus-operator> -> PLUS
-<plus-operator> -> MINUS
-<plus-operator> -> OR
+<type> -> CHAR
+<type> -> ARRAY LEFT_BRACKET INTEGER RIGHT_BRACKET OF <type>
+
+<ident_list> -> IDENTIFIER
+<ident_list> -> IDENTIFIER COMMA <ident_list>
+
+<assign> -> <full_id> ASSIGN <expr>
+
+<if_stmt> -> IF <cond> THEN <stmt> ELSE <stmt>
+<if_stmt> -> IF <cond> THEN <stmt>
+<while_stmt> -> WHILE <cond> <stmt>
+
+<io> -> PRINT <expr>
+<io> -> PRINT STRING
+
+<out> -> READ IDENTIFIER
+
+<expr> -> <expr> PLUS <term>
+<expr> -> <expr> MINUS <term>
+<expr> -> <term>
+
+<term> -> <term> MULTIPLICATION <factor>
+<term> -> <term> DIVIDE <factor>
+<term> -> <term> DIV <factor>
+<term> -> <term> MOD <factor>
 <term> -> <factor>
-<term> -> <term> <mult-operator> <factor>
-<mult-operator> -> MULTIPLICATION
-<mult-operator> -> DIVIDE
-<mult-operator> -> AND
-<mult-operator> -> DIV
-<mult-operator> -> MOD
-<ident> -> IDENTIFIER
-<ident> -> IDENTIFIER DOT <ident>
-<list-simple-expr> -> ε
-<list-simple-expr> -> <simple-expr> <list-simple-expr>
-<factor> -> <ident>
-<factor> -> NOT <factor>
+
+<factor> -> <full_id>
 <factor> -> MINUS <factor>
-<factor> -> <bool-value>
-<factor> -> <numeric-value>
+<factor> -> NOT <factor>
 <factor> -> LEFT_PAREN <expr> RIGHT_PAREN
-<bool-value> -> TRUE
-<bool-value> -> FALSE
-<numeric-value> -> INTEGER
-<numeric-value> -> FLOAT
+<factor> -> INTEGER
+<factor> -> FLOAT
+<factor> -> TRUE
+<factor> -> FALSE
+
+<cond> -> <expr> <rel_op> <expr>
+<cond> -> <expr>
+
+<rel_op> -> EQ
+<rel_op> -> NOT_EQ
+<rel_op> -> LESS
+<rel_op> -> GREATER
+<rel_op> -> LESS_EQ
+<rel_op> -> GREATER_EQ
+
+<full_id> -> IDENTIFIER
+<full_id> -> IDENTIFIER LEFT_BRACKET <expr> RIGHT_BRACKET

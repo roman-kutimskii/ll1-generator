@@ -9,6 +9,7 @@ class TokenType:
     def __str__(self):
         return self.name
 
+
 TOKEN_TYPES = [
     TokenType('BLOCK_COMMENT', f'{{.*}}'),
     TokenType('LINE_COMMENT', f'//.*\n'),
@@ -25,9 +26,11 @@ TOKEN_TYPES = [
     TokenType('TYPE', f'(T|t)(Y|y)(P|p)(E|e)'),
     TokenType('INT', f'(I|i)(N|n)(T|t)'),
     TokenType('REAL', f'(R|r)(E|e)(A|a)(L|l)'),
+    TokenType('CHAR', f'(C|c)(H|h)(A|a)(R|r)'),
     TokenType('LOOP', f'(L|l)(O|o)(O|o)(P|p)'),
     TokenType('WHILE', f'(W|w)(H|h)(I|i)(L|l)(E|e)'),
     TokenType('PRINT', f'(P|p)(R|r)(I|i)(N|n)(T|t)'),
+    TokenType('READ', f'(R|r)(E|e)(A|a)(D|d)'),
     TokenType('VAR', f'(V|v)(A|a)(R|r)'),
     TokenType('AND', f'(A|a)(N|n)(D|d)'),
     TokenType('DIV', f'(D|d)(I|i)(V|v)'),
@@ -46,7 +49,7 @@ TOKEN_TYPES = [
     TokenType('RIGHT_PAREN', '\\)'),
     TokenType('LEFT_BRACKET', '['),
     TokenType('RIGHT_BRACKET', ']'),
-    TokenType('EQ', '='),
+    TokenType('EQ', '=='),
     TokenType('LESS_EQ', '<='),
     TokenType('GREATER_EQ', '>='),
     TokenType('NOT_EQ', '!='),
