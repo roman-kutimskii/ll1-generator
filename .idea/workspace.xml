@@ -18,11 +18,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9aaef7f0-3a97-43e2-b286-3a652b68dd72" name="Changes" comment="Обновить грамматику">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="9aaef7f0-3a97-43e2-b286-3a652b68dd72" name="Changes" comment="Добавлена валидация грамматики и обновлена логика обработки ошибок.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/grammar.txt" beforeDir="false" afterPath="$PROJECT_DIR$/grammar.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/grammar_validation.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/grammar_validation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/table.csv" beforeDir="false" afterPath="$PROJECT_DIR$/table.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +178,7 @@
       <workItem from="1747696052829" duration="438000" />
       <workItem from="1747733521438" duration="1001000" />
       <workItem from="1747741332795" duration="1481000" />
-      <workItem from="1748458662181" duration="14138000" />
+      <workItem from="1748458662181" duration="15135000" />
     </task>
     <task id="LOCAL-00001" summary="Добавить файлы IDE">
       <option name="closed" value="true" />
@@ -227,7 +228,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748472034257</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Добавлена валидация грамматики и обновлена логика обработки ошибок.">
+      <option name="closed" value="true" />
+      <created>1748474747765</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1748474747765</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,7 +251,8 @@
     <MESSAGE value="Обновлена грамматика, таблицы LL(1) анализатора, тестовые данные и упрощены правила синтаксиса." />
     <MESSAGE value="Починить Lexer" />
     <MESSAGE value="Обновить грамматику" />
-    <option name="LAST_COMMIT_MESSAGE" value="Обновить грамматику" />
+    <MESSAGE value="Добавлена валидация грамматики и обновлена логика обработки ошибок." />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлена валидация грамматики и обновлена логика обработки ошибок." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -256,7 +266,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ll1_generator$main.coverage" NAME="main Coverage Results" MODIFIED="1748474256078" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$ProjectFileDir$" />
+    <SUITE FILE_PATH="coverage/ll1_generator$main.coverage" NAME="main Coverage Results" MODIFIED="1748475712360" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$ProjectFileDir$" />
     <SUITE FILE_PATH="coverage/ll1_generator$lab6.coverage" NAME="lab6 Coverage Results" MODIFIED="1747737539579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$ProjectFileDir$" />
     <SUITE FILE_PATH="coverage/ll1_generator$check_line.coverage" NAME="check_line Coverage Results" MODIFIED="1742844670269" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/ll1_generator$parse_grammar.coverage" NAME="parse_grammar Coverage Results" MODIFIED="1742740625701" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />

@@ -7,7 +7,7 @@ from src.check_line import check_line
 from src.grammar import factorize_grammar, remove_direct_recursion, remove_indirect_recursion, remove_unreachable_rules, \
     calculate_directing_sets
 from src.grammar_utils import parse_grammar, parse_grammar_with_first_set, write_grammar
-from src.grammar_validation import validate_grammar
+from src.grammar_validation import validate_grammar, check_ll1_uniqueness
 from src.table import write_table, read_table
 
 
@@ -28,10 +28,10 @@ def task3() -> str | None:
     with open("grammar.txt", "r", encoding="utf-8") as f:
         grammar, axiom_nonterminal = parse_grammar(f.readlines())
 
-    error = validate_grammar(grammar, axiom_nonterminal)
+    validation_error = validate_grammar(grammar, axiom_nonterminal)
 
-    if error:
-        return error
+    if validation_error:
+        return validation_error
 
     grammar = factorize_grammar(grammar)
 
@@ -58,6 +58,10 @@ def task3() -> str | None:
     grammar = calculate_directing_sets(grammar, axiom_nonterminal)
 
     write_grammar(grammar, axiom_nonterminal)
+
+    ll1_error = check_ll1_uniqueness(grammar)
+    if ll1_error:
+        return ll1_error
 
     return None
 

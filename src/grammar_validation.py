@@ -2,7 +2,7 @@ from src.build_parsing_table import is_terminal
 from src.grammar_utils import Grammar
 
 
-def check_reachability(grammar: Grammar, start_symbol: str) -> bool:
+def check_reachability(grammar: Grammar, start_symbol: str) -> str | None:
     reachable = set()
     queue = [start_symbol]
 
@@ -21,7 +21,8 @@ def check_reachability(grammar: Grammar, start_symbol: str) -> bool:
     all_nonterminals = set(grammar.rules.keys())
     unreachable = all_nonterminals - reachable
 
-    return len(unreachable) == 0
+    return None if len(unreachable) == 0 else "Grammar is not reachable from start symbol. Symbols" + ",".join(
+        unreachable)
 
 
 def check_productivity(grammar: Grammar) -> str | None:
@@ -69,8 +70,43 @@ def check_productivity(grammar: Grammar) -> str | None:
     return None if len(unproductive) == 0 else "Grammar is not productive."
 
 
-def validate_grammar(grammar: Grammar, start_symbol: str) -> str | None:
-    if not check_reachability(grammar, start_symbol):
-        return 'Grammar is not reachable from start symbol.'
+def check_ll1_uniqueness(grammar: Grammar) -> str | None:
+    conflicts = []
 
-    return check_productivity(grammar)
+    for nonterminal, rule in grammar.rules.items():
+        if len(rule.productions) <= 1:
+            continue
+
+        directing_sets = []
+        for i, production in enumerate(rule.productions):
+            directing_set = set(production.first_set)
+            directing_sets.append((i, directing_set))
+
+        for i in range(len(directing_sets)):
+            for j in range(i + 1, len(directing_sets)):
+                set1 = directing_sets[i][1]
+                set2 = directing_sets[j][1]
+                intersection = set1 & set2
+
+                if intersection:
+                    prod1_symbols = ' '.join(rule.productions[directing_sets[i][0]].symbols)
+                    prod2_symbols = ' '.join(rule.productions[directing_sets[j][0]].symbols)
+                    conflicts.append(
+                        f"{nonterminal}: '{prod1_symbols}' and '{prod2_symbols}' have common symbols {sorted(intersection)}")
+
+    if conflicts:
+        return "Grammar is not LL(1). Directing set conflicts:\n" + "\n".join(conflicts)
+
+    return None
+
+
+def validate_grammar(grammar: Grammar, start_symbol: str) -> str | None:
+    reachability_error = check_reachability(grammar, start_symbol)
+    if reachability_error:
+        return reachability_error
+
+    productivity_error = check_productivity(grammar)
+    if productivity_error:
+        return productivity_error
+
+    return None
