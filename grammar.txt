@@ -33,8 +33,8 @@
 
 <assign> -> <full_id> ASSIGN <expr>
 
-<if_stmt> -> IF <cond> THEN <stmt> ELSE <stmt>
-<if_stmt> -> IF <cond> THEN <stmt>
+<if_stmt> -> IF <cond> THEN <stmt> ELSE <stmt> END
+<if_stmt> -> IF <cond> THEN <stmt> END
 <while_stmt> -> WHILE <cond> <stmt>
 
 <io> -> PRINT <expr>

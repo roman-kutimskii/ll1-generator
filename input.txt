@@ -9,26 +9,30 @@ BEGIN
   ;
   IF d THEN
     READ ch;
+  END
 
   IF d == d THEN
-  BEGIN
-    READ ch;
-    ;
+      BEGIN
+        READ ch;
+        ;
+      END
   END
 
   IF d == d THEN
     READ ch;
   ELSE
     PRINT ch;
+  END
 
   IF d == d THEN
-  BEGIN
-    READ ch;
-  END
+      BEGIN
+        READ ch;
+      END
   ELSE
-  BEGIN
-    PRINT ch;
-    ;
+      BEGIN
+        PRINT ch;
+        ;
+      END
   END
 
   arr[0] := 5;
@@ -41,11 +45,12 @@ BEGIN
         WHILE j < 9 - i
         BEGIN
             IF arr[j] > arr[j+1] THEN
-            BEGIN
-                temp := arr[j];
-                arr[j] := arr[j+1];
-                arr[j+1] := temp;
-                ;
+                BEGIN
+                    temp := arr[j];
+                    arr[j] := arr[j+1];
+                    arr[j+1] := temp;
+                    ;
+                END
             END
             ;
         END

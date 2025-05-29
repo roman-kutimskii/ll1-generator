@@ -27,8 +27,8 @@
 <ident_list'> -> COMMA <ident_list> | COMMA
 <ident_list> -> IDENTIFIER <ident_list'> | IDENTIFIER
 <assign> -> <full_id> ASSIGN <expr> | IDENTIFIER
-<if_stmt'> -> ELSE <stmt> | ELSE
-<if_stmt'> -> ε | BEGIN ELSE END IDENTIFIER IF PRINT READ SEMICOLON WHILE
+<if_stmt'> -> ELSE <stmt> END | ELSE
+<if_stmt'> -> END | END
 <if_stmt> -> IF <cond> THEN <stmt> <if_stmt'> | IF
 <while_stmt> -> WHILE <cond> <stmt> | WHILE
 <io'> -> <expr> | FALSE FLOAT IDENTIFIER INTEGER LEFT_PAREN MINUS NOT TRUE
